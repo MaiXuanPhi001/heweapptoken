@@ -11,6 +11,8 @@ import { contants } from '../../../utils/contants'
 import TextFormError from '../Reuse/TextFormError'
 import { sendMailSignUp, signUp } from '../../../api/userApi'
 import VerifyCodeEmail from './VerifyCodeEmail'
+import { RadioButton } from 'react-native-paper'
+import RadioBtn from '../Reuse/RadioBtn'
 
 const FormSignUp = () => {
     const [email, setEmail] = useState('')
@@ -148,24 +150,17 @@ const FormSignUp = () => {
             />
 
             <Block row width={'100%'} alignCenter>
-                {/* <MyText marginRight={10}>Gender: </MyText>
-                <Block row marginRight={10} alignCenter>
-                    <RadioButton
-                        value={1}
-                        status={gender === 1 ? 'checked' : 'unchecked'}
-                        onPress={() => setGender(1)}
-                    />
-                    <MyText>Male</MyText>
-                </Block>
-
-                <Block row alignCenter>
-                    <RadioButton
-                        value={2}
-                        status={gender === 2 ? 'checked' : 'unchecked'}
-                        onPress={() => setGender(2)}
-                    />
-                    <MyText>Female</MyText>
-                </Block> */}
+                <MyText marginRight={10}>Gender: </MyText>
+                <RadioBtn
+                    text={'Male'}
+                    onPress={() => setGender(1)}
+                    checked={gender === 1 ? true : false}
+                />
+                <RadioBtn
+                    text={'Female'}
+                    onPress={() => setGender(2)}
+                    checked={gender === 2 ? true : false}
+                />
             </Block>
 
             <ButtonUser
