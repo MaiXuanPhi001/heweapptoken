@@ -1,4 +1,4 @@
-import { Button, Dimensions, Image, StyleSheet, Text, View, useWindowDimensions } from 'react-native'
+import { Button, Dimensions, Image, StyleSheet, Text, View, Platform, PermissionsAndroid } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import Block from '../../common/Block'
 import { useDispatch, useSelector } from 'react-redux'
@@ -10,6 +10,7 @@ import { ranLimitSelector } from '../../../redux/selectors/walkSelector'
 import { onGetRan, sendPositionRunStart } from '../../../redux/slices/waklSlice'
 import MyText from '../../common/MyText'
 // import * as Location from 'expo-location'
+import Geolocation from 'react-native-geolocation-service'
 import { navigate } from '../../navigations/navigationRef'
 import { contants } from '../../../utils/contants'
 import { unwrapResult } from '@reduxjs/toolkit'
@@ -20,6 +21,7 @@ const Session = ({ navigation }) => {
   const ranLimit = useSelector(ranLimitSelector)
   const ran = useSelector(ranSelector)
   const [loading, setLoading] = useState(false)
+  const [permision, setPermission] = useState('')
 
   const emailUser = useSelector(emailSelector)
 
@@ -27,9 +29,47 @@ const Session = ({ navigation }) => {
 
   useEffect(() => {
     dispatch(onGetRan())
+    getCurrentLocation()
   }, [])
 
+  const getCurrentLocation = async () => {
+    const getLocationPermission = await locationPermission()
+    setPermission(getLocationPermission)
+  }
+
+  const locationPermission = () => new Promise(async (resolve, reject) => {
+    if (Platform.OS === 'ios') {
+      try {
+        const permissionStatus = await Geolocation.requestAuthorization('whenInUse')
+        console.log('permissioonStatus: ', permissionStatus)
+        if (permissionStatus === 'granted') {
+          return resolve('granted')
+        }
+        reject('permission not granted')
+      } catch (error) {
+        return reject(error)
+      }
+    }
+    return PermissionsAndroid.request(
+      PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
+    ).then((granted) => {
+      if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+        return resolve('granted')
+      }
+      return reject('Location Permission denied')
+    }).catch((error) => {
+      console.log('Ask Location permission error: ', error)
+      return reject(error)
+    })
+  })
+
   const handleRunStart = async () => {
+    if (permision === 'granted') {
+      navigate(contants.screen.STARTRUN)
+    } else {
+      alert('You have denied location access!')
+    }
+
     // const { status } = await Location.requestForegroundPermissionsAsync()
     // if (status !== 'granted') {
     //   alert('You have denied location access')

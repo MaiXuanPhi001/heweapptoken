@@ -15,29 +15,29 @@ const HeaderPosition = ({arrPosition, distance}) => {
     const latitudeStart = useSelector(latiudeStartSelector)
     const longitudeStart = useSelector(longtiudeStartSelector)
 
-    const backAction = () => {
-        Alert.alert("Hold on!", "Are you sure you want to go back?", [
-            {
-                text: "Cancel",
-                onPress: () => null,
-                style: "cancel"
-            },
-            { text: "YES", onPress: walkEnd }
-        ])
-    }
+    // const backAction = () => {
+    //     Alert.alert("Hold on!", "Are you sure you want to go back?", [
+    //         {
+    //             text: "Cancel",
+    //             onPress: () => null,
+    //             style: "cancel"
+    //         },
+    //         { text: "YES", onPress: walkEnd }
+    //     ])
+    // }
 
-    const walkEnd = async () => {
-        const lastPosition = arrPosition.length === 0 ?
-          { longitude: longitudeStart, latitude: latitudeStart } :
-          arrPosition[arrPosition.length - 1]
+    // const walkEnd = async () => {
+    //     const lastPosition = arrPosition.length === 0 ?
+    //       { longitude: longitudeStart, latitude: latitudeStart } :
+    //       arrPosition[arrPosition.length - 1]
     
-        await sendPositionEnd({
-          longitudeEnd: lastPosition.longitude,
-          latitudeEnd: lastPosition.latitude,
-          ran: distance.toFixed(2)
-        })
-        goBack()
-      }
+    //     await sendPositionEnd({
+    //       longitudeEnd: lastPosition.longitude,
+    //       latitudeEnd: lastPosition.latitude,
+    //       ran: distance.toFixed(2)
+    //     })
+    //     goBack()
+    //   }
 
 
     return (
@@ -52,7 +52,7 @@ const HeaderPosition = ({arrPosition, distance}) => {
             borderBottomLeftRadius={10}
             borderBottomRightRadius={10}
         >
-            <MyButton onPress={backAction}>
+            <MyButton onPress={() => null}>
                 <Img
                     resizeMode={'contain'}
                     width={20}

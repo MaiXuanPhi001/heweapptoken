@@ -203,14 +203,81 @@
 //   }
 // })
 
-import { StyleSheet, Text, View } from 'react-native'
-import React from 'react'
+import { SafeAreaView, StyleSheet, Text, View } from 'react-native'
+import React, { useEffect, useState } from 'react'
+import Geolocation from 'react-native-geolocation-service'
+import * as turf from '@turf/turf'
+import Position from './Position'
+import Scroll from '../../common/Scroll'
 
 const StartRun = () => {
+  const [pause, setPause] = useState(false)
+  const [second, setSecond] = useState(0)
+  const [secondTwo, setSecondTwo] = useState(0)
+  const [arrayPosition, setArrayPosition] = useState([])
+
+  // Đếm giây
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (!pause) {
+        setSecond(second + 1)
+      }
+    }, 1000)
+    return () => clearTimeout(timer)
+  })
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (!pause) {
+        // if second two >= 5 get lại user position
+        if (secondTwo >= 5) {
+          console.log('abc')
+          getLocation()
+          return setSecondTwo(0)
+        }
+        setSecondTwo(secondTwo + 1)
+      }
+    }, 1000)
+    return () => clearTimeout(timer)
+  })
+
+  const getLocation = () => {
+    Geolocation.getCurrentPosition(
+      (position) => {
+        if (arrayPosition.length > 0) {
+          if (distanceBetween(arrayPosition[arrayPosition.length - 1], position.coords) >= 0.011) {
+            setArrayPosition([...arrayPosition, { latitude: position.coords.latitude, longitude: position.coords.longitude }])
+          }
+        } else {
+          setArrayPosition([...arrayPosition, { latitude: position.coords.latitude, longitude: position.coords.longitude }])
+        }
+      },
+      (error) => {
+        console.log('error: ', error)
+      },
+      { enableHighAccuracy: true, timeout: 1000, maximumAge: 1000 }
+    )
+  }
+
+  const distanceBetween = (coord, arrPosition) => {
+    var from = turf.point([coord.longitude, coord.latitude])
+    var to = turf.point([arrPosition.longitude, arrPosition.latitude])
+    var options = { units: 'kilometers' }; // kilometers
+
+    return turf.distance(from, to, options)
+  }
+
   return (
-    <View>
-      <Text>StartRun</Text>
-    </View>
+    <Scroll
+      flexGrow={1}
+      isPaddingAdnroid
+    >
+      <SafeAreaView>
+        <Position
+          second={second}
+        />
+      </SafeAreaView>
+    </Scroll>
   )
 }
 

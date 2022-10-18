@@ -52,7 +52,7 @@ const Pause = ({ pause, setPause, coin }) => {
                 }
             </Block>
             <Block alignCenter>
-                <MyText color={theme.colors.white} size={20}>+ {coin.toFixed(1)}</MyText>
+                <MyText color={theme.colors.white} size={20}>+ 0</MyText>
                 <Img url={require('../../../assets/images/coin.png')} />
             </Block>
         </Block>
