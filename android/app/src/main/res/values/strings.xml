@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">heweapptoken</string>
+    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyCVAY680-b1fBkGIF-18AZVacW67iEP4xA</string>
 </resources>

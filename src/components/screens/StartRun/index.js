@@ -209,6 +209,7 @@ import Geolocation from 'react-native-geolocation-service'
 import * as turf from '@turf/turf'
 import Position from './Position'
 import Scroll from '../../common/Scroll'
+import Map from './Map'
 
 const StartRun = () => {
   const [pause, setPause] = useState(false)
@@ -276,6 +277,7 @@ const StartRun = () => {
         <Position
           second={second}
         />
+        <Map />
       </SafeAreaView>
     </Scroll>
   )
