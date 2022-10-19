@@ -215,20 +215,9 @@ const StartRun = () => {
   const [pause, setPause] = useState(false)
   const [second, setSecond] = useState(0)
   const [secondEnd, setSecondEnd] = useState(0)
-  const [secondTwo, setSecondTwo] = useState(0)
-  const [render, setRender] = useState(false)
   const [distance, setDistance] = useState(0)
+  const [pace, setPace] = useState(0)
   const [arrayPosition, setArrayPosition] = useState([])
-
-  // Đếm giây
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      if (!pause) {
-        setSecond(second + 1)
-      }
-    }, 1000)
-    return () => clearTimeout(timer)
-  })
 
   // useEffect(() => {
   //   const timer = setTimeout(() => {
@@ -247,14 +236,19 @@ const StartRun = () => {
   useEffect(() => {
     Geolocation.watchPosition(
       (position) => {
+        if (pause) return
         if (arrayPosition.length > 0) {
-          console.log('setdistan')
-          setDistance(distanceBetween(arrayPosition[arrayPosition.length - 1], position.coords))
+          // if tạo độ vị trí === tạo độ vị trí trước thì return
+          if (arrayPosition[arrayPosition.length - 1].latitude === position.coords.latitude &&
+            arrayPosition[arrayPosition.length - 1].longitude === position.coords.longitude) return
+
+          const kilometers = distanceBetween(arrayPosition[arrayPosition.length - 1], position.coords)
+          setDistance(distance + kilometers)
         }
         let arrPositionCopy = arrayPosition
         arrPositionCopy.push({ latitude: position.coords.latitude, longitude: position.coords.longitude })
-        console.log('abc', arrPositionCopy)
         setArrayPosition(arrPositionCopy)
+        console.log('second: ', second)
       },
       (error) => {
         console.log('error: ', error)
@@ -263,7 +257,22 @@ const StartRun = () => {
     )
   }, [])
 
-  console.log('render', arrayPosition)
+    // Đếm giây
+    useEffect(() => {
+      const timer = setTimeout(() => {
+        if (!pause) {
+          setSecond(second + 1)
+        }
+      }, 1000)
+      return () => clearTimeout(timer)
+    })
+
+  const calculateVelocity = (s) => {
+    console.log(`${second} || ${secondEnd}`)
+    const t = (second - secondEnd) / 3600
+    if (t === 0) return 0
+    setPace(s / t)
+  }
 
   const getLocation = () => {
     Geolocation.getCurrentPosition(
@@ -303,6 +312,7 @@ const StartRun = () => {
         <Position
           second={second}
           distance={distance}
+          pace={pace}
         />
         {arrayPosition.length > 0 &&
           <Map

@@ -17,7 +17,6 @@ const Position = ({ pause, setPause, second, distance, pace, coin, arrPosition }
                 second={second}
                 distance={distance}
                 pace={pace}
-
             />
             <Pause
                 pause={pause}
