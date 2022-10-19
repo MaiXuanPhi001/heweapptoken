@@ -4,7 +4,7 @@ import { height } from '../../../utils/responsive'
 import Pin from './Pin'
 import React from 'react'
 
-const Map = () => {
+const Map = ({ arrPosition }) => {
     return (
         <MapView
             style={styles.map}

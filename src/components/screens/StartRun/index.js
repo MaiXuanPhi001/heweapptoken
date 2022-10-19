@@ -214,7 +214,10 @@ import Map from './Map'
 const StartRun = () => {
   const [pause, setPause] = useState(false)
   const [second, setSecond] = useState(0)
+  const [secondEnd, setSecondEnd] = useState(0)
   const [secondTwo, setSecondTwo] = useState(0)
+  const [render, setRender] = useState(false)
+  const [distance, setDistance] = useState(0)
   const [arrayPosition, setArrayPosition] = useState([])
 
   // Đếm giây
@@ -227,36 +230,59 @@ const StartRun = () => {
     return () => clearTimeout(timer)
   })
 
+  // useEffect(() => {
+  //   const timer = setTimeout(() => {
+  //     if (!pause) {
+  //       // if second two >= 5 get lại user position
+  //       if (secondTwo >= 5) {
+  //         getLocation()
+  //         return setSecondTwo(0)
+  //       }
+  //       setSecondTwo(secondTwo + 1)
+  //     }
+  //   }, 1000)
+  //   return () => clearTimeout(timer)
+  // })
+
   useEffect(() => {
-    const timer = setTimeout(() => {
-      if (!pause) {
-        // if second two >= 5 get lại user position
-        if (secondTwo >= 5) {
-          console.log('abc')
-          getLocation()
-          return setSecondTwo(0)
+    Geolocation.watchPosition(
+      (position) => {
+        if (arrayPosition.length > 0) {
+          console.log('setdistan')
+          setDistance(distanceBetween(arrayPosition[arrayPosition.length - 1], position.coords))
         }
-        setSecondTwo(secondTwo + 1)
-      }
-    }, 1000)
-    return () => clearTimeout(timer)
-  })
+        let arrPositionCopy = arrayPosition
+        arrPositionCopy.push({ latitude: position.coords.latitude, longitude: position.coords.longitude })
+        console.log('abc', arrPositionCopy)
+        setArrayPosition(arrPositionCopy)
+      },
+      (error) => {
+        console.log('error: ', error)
+      },
+      { enableHighAccuracy: true, distanceFilter: 10 }
+    )
+  }, [])
+
+  console.log('render', arrayPosition)
 
   const getLocation = () => {
     Geolocation.getCurrentPosition(
       (position) => {
         if (arrayPosition.length > 0) {
+          console.log('distan: ', distanceBetween(arrayPosition[arrayPosition.length - 1], position.coords))
           if (distanceBetween(arrayPosition[arrayPosition.length - 1], position.coords) >= 0.011) {
+            console.log('distan: ', distanceBetween(arrayPosition[arrayPosition.length - 1], position.coords))
             setArrayPosition([...arrayPosition, { latitude: position.coords.latitude, longitude: position.coords.longitude }])
           }
         } else {
+          /// send api position star here
           setArrayPosition([...arrayPosition, { latitude: position.coords.latitude, longitude: position.coords.longitude }])
         }
       },
       (error) => {
         console.log('error: ', error)
       },
-      { enableHighAccuracy: true, timeout: 1000, maximumAge: 1000 }
+      { enableHighAccuracy: true, timeout: 15000, maximumAge: 10000 }
     )
   }
 
@@ -276,8 +302,13 @@ const StartRun = () => {
       <SafeAreaView>
         <Position
           second={second}
+          distance={distance}
         />
-        <Map />
+        {arrayPosition.length > 0 &&
+          <Map
+            arrPosition={arrayPosition}
+          />
+        }
       </SafeAreaView>
     </Scroll>
   )
