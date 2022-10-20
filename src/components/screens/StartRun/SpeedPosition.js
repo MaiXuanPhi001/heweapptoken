@@ -47,7 +47,7 @@ const SpeedPosition = ({ second, distance, pace }) => {
                     color={theme.colors.white}
                     size={20}
                 >
-                    {distance.toFixed(3)}
+                    {distance.toFixed(4)}
                 </MyText>
                 <MyText
                     color={theme.colors.white}

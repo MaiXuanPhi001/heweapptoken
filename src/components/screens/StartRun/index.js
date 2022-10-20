@@ -242,8 +242,10 @@ const StartRun = () => {
         if (paceEnabled) {
           if (arrayPosition.length >= 2) {
             const kilometers = distanceBetween(arrayPosition[arrayPosition.length - 1], arrayPosition[arrayPosition.length - 2])
-            calculateVelocity(kilometers, second + 1, secondEnd)
-            console.log('distan: ', distance)
+            const velocity = calculateVelocity(kilometers, second + 1, secondEnd) // nếu vận tốc lớn hơn 12 return 
+            setPace(velocity)
+            if (velocity >= 10) return
+            console.log('velocity', distance)
             setDistance(distance + kilometers)
             setSecondEnd(second + 1)
           }
@@ -260,6 +262,7 @@ const StartRun = () => {
   useEffect(() => {
     Geolocation.watchPosition(
       (position) => {
+        console.log('position')
         if (pause) return  // bấm dừng thì return
         if (arrayPosition.length > 0) {
           // if tạo độ vị trí === tạo độ vị trí trước thì return
@@ -282,8 +285,8 @@ const StartRun = () => {
     console.log(`${second} || ${secondEnd}`)
     const t = (second - secondEnd) / 3600
     if (t === 0) return 0
-    setPace(s / t)
     setPaceEnabled(false)
+    return s / t
   }
 
   const distanceBetween = (coord, arrPosition) => {
