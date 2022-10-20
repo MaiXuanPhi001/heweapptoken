@@ -6,7 +6,7 @@ import Img from '../../common/Img'
 import { theme } from '../../../theme'
 import MyButton from '../../common/MyButton'
 
-const Pause = ({ pause, setPause, coin }) => {
+const Pause = ({ pause, setPause, distance }) => {
     return (
         <Block
             row
@@ -52,7 +52,7 @@ const Pause = ({ pause, setPause, coin }) => {
                 }
             </Block>
             <Block alignCenter>
-                <MyText color={theme.colors.white} size={20}>+ 0</MyText>
+                <MyText color={theme.colors.white} size={20}>+ {(distance * 10).toFixed(2)}</MyText>
                 <Img url={require('../../../assets/images/coin.png')} />
             </Block>
         </Block>

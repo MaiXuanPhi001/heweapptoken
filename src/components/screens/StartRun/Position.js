@@ -6,7 +6,7 @@ import HeaderPosition from './HeaderPosition'
 import SpeedPosition from './SpeedPosition'
 import Pause from './Pause'
 
-const Position = ({ pause, setPause, second, distance, pace, coin, arrPosition }) => {
+const Position = ({ pause, setPause, second, distance, pace, arrPosition }) => {
     return (
         <Block
             backgroundColor={theme.colors.lightGreen}
@@ -21,7 +21,7 @@ const Position = ({ pause, setPause, second, distance, pace, coin, arrPosition }
             <Pause
                 pause={pause}
                 setPause={setPause}
-                coin={coin}
+                distance={distance}
             />
         </Block>
     )

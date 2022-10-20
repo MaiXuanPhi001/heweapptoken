@@ -217,6 +217,7 @@ const StartRun = () => {
   const [secondEnd, setSecondEnd] = useState(0)
   const [distance, setDistance] = useState(0)
   const [pace, setPace] = useState(0)
+  const [paceEnabled, setPaceEnabled] = useState(false)
   const [arrayPosition, setArrayPosition] = useState([])
 
   // useEffect(() => {
@@ -233,22 +234,42 @@ const StartRun = () => {
   //   return () => clearTimeout(timer)
   // })
 
+  // Đếm giây
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (!pause) {
+        setSecond(second + 1)
+        if (paceEnabled) {
+          if (arrayPosition.length >= 2) {
+            const kilometers = distanceBetween(arrayPosition[arrayPosition.length - 1], arrayPosition[arrayPosition.length - 2])
+            calculateVelocity(kilometers, second + 1, secondEnd)
+            console.log('distan: ', distance)
+            setDistance(distance + kilometers)
+            setSecondEnd(second + 1)
+          }
+        } else {
+          if (second - secondEnd >= 10) {
+            setPace(0)
+          }
+        }
+      }
+    }, 1000)
+    return () => clearTimeout(timer)
+  })
+
   useEffect(() => {
     Geolocation.watchPosition(
       (position) => {
-        if (pause) return
+        if (pause) return  // bấm dừng thì return
         if (arrayPosition.length > 0) {
           // if tạo độ vị trí === tạo độ vị trí trước thì return
           if (arrayPosition[arrayPosition.length - 1].latitude === position.coords.latitude &&
             arrayPosition[arrayPosition.length - 1].longitude === position.coords.longitude) return
-
-          const kilometers = distanceBetween(arrayPosition[arrayPosition.length - 1], position.coords)
-          setDistance(distance + kilometers)
         }
         let arrPositionCopy = arrayPosition
         arrPositionCopy.push({ latitude: position.coords.latitude, longitude: position.coords.longitude })
         setArrayPosition(arrPositionCopy)
-        console.log('second: ', second)
+        setPaceEnabled(true)
       },
       (error) => {
         console.log('error: ', error)
@@ -257,42 +278,12 @@ const StartRun = () => {
     )
   }, [])
 
-    // Đếm giây
-    useEffect(() => {
-      const timer = setTimeout(() => {
-        if (!pause) {
-          setSecond(second + 1)
-        }
-      }, 1000)
-      return () => clearTimeout(timer)
-    })
-
-  const calculateVelocity = (s) => {
+  const calculateVelocity = (s, second, secondEnd) => {
     console.log(`${second} || ${secondEnd}`)
     const t = (second - secondEnd) / 3600
     if (t === 0) return 0
     setPace(s / t)
-  }
-
-  const getLocation = () => {
-    Geolocation.getCurrentPosition(
-      (position) => {
-        if (arrayPosition.length > 0) {
-          console.log('distan: ', distanceBetween(arrayPosition[arrayPosition.length - 1], position.coords))
-          if (distanceBetween(arrayPosition[arrayPosition.length - 1], position.coords) >= 0.011) {
-            console.log('distan: ', distanceBetween(arrayPosition[arrayPosition.length - 1], position.coords))
-            setArrayPosition([...arrayPosition, { latitude: position.coords.latitude, longitude: position.coords.longitude }])
-          }
-        } else {
-          /// send api position star here
-          setArrayPosition([...arrayPosition, { latitude: position.coords.latitude, longitude: position.coords.longitude }])
-        }
-      },
-      (error) => {
-        console.log('error: ', error)
-      },
-      { enableHighAccuracy: true, timeout: 15000, maximumAge: 10000 }
-    )
+    setPaceEnabled(false)
   }
 
   const distanceBetween = (coord, arrPosition) => {
