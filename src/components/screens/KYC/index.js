@@ -6,14 +6,13 @@ import OpenDrawer from '../Reuse/OpenDrawer'
 import Block from '../../common/Block'
 import InputUser from '../Reuse/InputUser'
 import ChooseImg from './ChooseImg'
-import ModalAlert from '../Reuse/ModalAlert'
 import ButtonUser from '../Reuse/ButtonUser'
 import TextFormError from '../Reuse/TextFormError'
 import { useSelector } from 'react-redux'
 import { userInfoSelector } from '../../../redux/selectors/userSelector'
-import { contants } from '../../../utils/contants'
 import { checkKYC } from '../../../api/kycApi'
 import RadioBtn from '../Reuse/RadioBtn'
+import ModalChooseImg from './ModalChooseImg'
 
 const initValue = {
   firtName: '',
@@ -25,6 +24,7 @@ const initValue = {
   img1: '',
   img2: '',
   img3: '',
+  imgChoose: 1,
   checkForm: false
 }
 
@@ -87,37 +87,27 @@ const KYC = ({ navigation }) => {
     formdata.append('photo', { uri: Platform.OS === 'ios' ? data.img2.replace('file://', '') : data.img2, name: 'image.jpg', type: 'image/jpg' })
     formdata.append('photo', { uri: Platform.OS === 'ios' ? data.img3.replace('file://', '') : data.img3, name: 'image.jpg', type: 'image/jpg' })
 
-    fetch(contants.HOSTING + '/api/user/kycUser', {
-      method: 'post',
-      headers: {
-        'Content-Type': 'multipart/form-data',
-      },
-      body: formdata
-    }).then(res => res.json())
-      .then(res => {
-        console.log('ress: ', JSON.stringify(res))
-        alert(res.message)
-      })
-      .catch(err => {
-        console.log('err: ', JSON.stringify(err))
-        alert('Has an error please try again')
-      })
-    setLoading(false)
+    // fetch(contants.HOSTING + '/api/user/kycUser', {
+    //   method: 'post',
+    //   headers: {
+    //     'Content-Type': 'multipart/form-data',
+    //   },
+    //   body: formdata
+    // }).then(res => res.json())
+    //   .then(res => {
+    //     console.log('ress: ', JSON.stringify(res))
+    //     alert(res.message)
+    //   })
+    //   .catch(err => {
+    //     console.log('err: ', JSON.stringify(err))
+    //     alert('Has an error please try again')
+    //   })
+    // setLoading(false)
   }
 
-  const pickImage = async (img) => {
-    // const result = await ImagePicker.launchImageLibraryAsync({
-    //   mediaTypes: ImagePicker.MediaTypeOptions.All,
-    //   allowsEditing: true,
-    //   aspect: [4, 3],
-    //   quality: 1,
-    // });
-
-    // if (!result.cancelled) {
-    //   img === 1 && handleDataDispatch('CHANGE', 'img1', result.uri)
-    //   img === 2 && handleDataDispatch('CHANGE', 'img2', result.uri)
-    //   img === 3 && handleDataDispatch('CHANGE', 'img3', result.uri)
-    // }
+  const handleShowModal = (value) => {
+    handleDataDispatch('CHANGE', 'imgChoose', value)
+    setShowModal(true)
   }
 
   if (loading) {
@@ -131,7 +121,6 @@ const KYC = ({ navigation }) => {
   if (!loading && checkKYCUser) {
     return (
       <SafeAreaView style={{ flex: 1 }}>
-
         <Block
           flex={1}
           isPaddingAdnroid
@@ -211,21 +200,21 @@ const KYC = ({ navigation }) => {
 
         <ChooseImg
           uri={data.img1}
-          onPress={() => pickImage(1)}
+          onPress={() => handleShowModal(1)}
           text={'Identily card 1:'}
         />
         {(data.checkForm && data.img1.trim() === '') && <TextFormError text={'Identily is empty'} />}
 
         <ChooseImg
           uri={data.img2}
-          onPress={() => pickImage(2)}
+          onPress={() => handleShowModal(2)}
           text={'Identily card 2:'}
         />
         {(data.checkForm && data.img2.trim() === '') && <TextFormError text={'Identily is empty'} />}
 
         <ChooseImg
           uri={data.img3}
-          onPress={() => pickImage(3)}
+          onPress={() => handleShowModal(3)}
           text={'Portrait:'}
         />
         {(data.checkForm && data.img3.trim() === '') && <TextFormError text={'Portrait is empty'} />}
@@ -236,9 +225,11 @@ const KYC = ({ navigation }) => {
           text={'Submit'}
         />
       </Block>
-      <ModalAlert
+      <ModalChooseImg
         show={showModal}
         setShow={setShowModal}
+        data={data}
+        handleDataDispatch={handleDataDispatch}
       />
     </ScroollAreaView>
   )
