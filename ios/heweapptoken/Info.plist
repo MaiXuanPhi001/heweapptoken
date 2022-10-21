@@ -42,6 +42,11 @@
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
 	<string>get location</string>
 
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>heweapptoken requires photo library access</string>
+	<key>NSCameraUsageDescription</key>
+	<string>heweapptoken requires camera access to take photo</string>
+
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string></string>
 	<key>UILaunchStoryboardName</key>

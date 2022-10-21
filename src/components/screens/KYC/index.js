@@ -13,6 +13,8 @@ import { userInfoSelector } from '../../../redux/selectors/userSelector'
 import { checkKYC } from '../../../api/kycApi'
 import RadioBtn from '../Reuse/RadioBtn'
 import ModalChooseImg from './ModalChooseImg'
+import { goBack } from '../../navigations/navigationRef'
+import { contants } from '../../../utils/contants'
 
 const initValue = {
   firtName: '',
@@ -24,7 +26,7 @@ const initValue = {
   img1: '',
   img2: '',
   img3: '',
-  imgChoose: 1,
+  imgChoose: '',
   checkForm: false
 }
 
@@ -53,7 +55,6 @@ const KYC = ({ navigation }) => {
   const checkKYCAPI = async () => {
     setLoading(true)
     const res = await checkKYC()
-    console.log('res: ', res)
     if (res.status) {
       setCheckKYCUser(true)
     }
@@ -87,22 +88,23 @@ const KYC = ({ navigation }) => {
     formdata.append('photo', { uri: Platform.OS === 'ios' ? data.img2.replace('file://', '') : data.img2, name: 'image.jpg', type: 'image/jpg' })
     formdata.append('photo', { uri: Platform.OS === 'ios' ? data.img3.replace('file://', '') : data.img3, name: 'image.jpg', type: 'image/jpg' })
 
-    // fetch(contants.HOSTING + '/api/user/kycUser', {
-    //   method: 'post',
-    //   headers: {
-    //     'Content-Type': 'multipart/form-data',
-    //   },
-    //   body: formdata
-    // }).then(res => res.json())
-    //   .then(res => {
-    //     console.log('ress: ', JSON.stringify(res))
-    //     alert(res.message)
-    //   })
-    //   .catch(err => {
-    //     console.log('err: ', JSON.stringify(err))
-    //     alert('Has an error please try again')
-    //   })
-    // setLoading(false)
+    fetch(contants.HOSTING + '/api/user/kycUser', {
+      method: 'post',
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+      body: formdata
+    }).then(res => res.json())
+      .then(res => {
+        console.log('ress: ', JSON.stringify(res))
+        alert(res.message)
+        setCheckKYCUser(true)
+      })
+      .catch(err => {
+        console.log('err: ', JSON.stringify(err))
+        alert('Has an error please try again')
+      })
+    setLoading(false)
   }
 
   const handleShowModal = (value) => {
@@ -112,7 +114,11 @@ const KYC = ({ navigation }) => {
 
   if (loading) {
     return (
-      <Block flex={1} alignCenter justifyCenter>
+      <Block
+        flex={1}
+        alignCenter justifyCenter
+        backgroundColor={'white'}
+      >
         <MyText>Loading...</MyText>
       </Block>
     )
@@ -120,23 +126,25 @@ const KYC = ({ navigation }) => {
 
   if (!loading && checkKYCUser) {
     return (
-      <SafeAreaView style={{ flex: 1 }}>
-        <Block
-          flex={1}
-          isPaddingAdnroid
-          paddingHorizontal={10}
-        >
-          <OpenDrawer navigation={navigation} />
+      <Block flex={1} backgroundColor={'white'}>
+        <SafeAreaView style={{ flex: 1 }}>
           <Block
             flex={1}
-            alignCenter
-            justifyCenter
+            isPaddingAdnroid
+            paddingHorizontal={10}
+            backgroundColor={'white'}
           >
-            <MyText fontWeightBold size={15}>The user has performed kyc</MyText>
+            <OpenDrawer navigation={navigation} />
+            <Block
+              flex={1}
+              alignCenter
+              justifyCenter
+            >
+              <MyText fontWeightBold size={15}>The user has performed kyc</MyText>
+            </Block>
           </Block>
-        </Block>
-      </SafeAreaView>
-
+        </SafeAreaView>
+      </Block>
     )
   }
 
@@ -200,21 +208,21 @@ const KYC = ({ navigation }) => {
 
         <ChooseImg
           uri={data.img1}
-          onPress={() => handleShowModal(1)}
+          onPress={() => handleShowModal('img1')}
           text={'Identily card 1:'}
         />
         {(data.checkForm && data.img1.trim() === '') && <TextFormError text={'Identily is empty'} />}
 
         <ChooseImg
           uri={data.img2}
-          onPress={() => handleShowModal(2)}
+          onPress={() => handleShowModal('img2')}
           text={'Identily card 2:'}
         />
         {(data.checkForm && data.img2.trim() === '') && <TextFormError text={'Identily is empty'} />}
 
         <ChooseImg
           uri={data.img3}
-          onPress={() => handleShowModal(3)}
+          onPress={() => handleShowModal('img3')}
           text={'Portrait:'}
         />
         {(data.checkForm && data.img3.trim() === '') && <TextFormError text={'Portrait is empty'} />}

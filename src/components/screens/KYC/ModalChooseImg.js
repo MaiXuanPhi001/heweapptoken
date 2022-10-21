@@ -4,8 +4,33 @@ import ModalAlert from '../Reuse/ModalAlert'
 import Block from '../../common/Block'
 import MyButton from '../../common/MyButton'
 import MyText from '../../common/MyText'
+import ImagePicker from 'react-native-image-crop-picker';
 
-const ModalChooseImg = ({ show, setShow }) => {
+const ModalChooseImg = ({ show, setShow, data, handleDataDispatch }) => {
+
+    const takePhotoFromToCamera = () => {
+        ImagePicker.openCamera({
+            width: 400,
+            height: 300,
+            cropping: true,
+        }).then(image => {
+            handleDataDispatch('CHANGE', data.imgChoose, image.path)
+            setShow(false)
+        }).catch(err => console.log(err))
+    }
+
+    const choosePhotoFromLibrary = () => {
+        ImagePicker.openPicker({
+            width: 400,
+            height: 300,
+            cropping: true,
+            multiple: false
+        }).then(image => {
+            handleDataDispatch('CHANGE', data.imgChoose, image.path)
+            setShow(false)
+        }).catch(err => console.log(err))
+    }
+
     return (
         <ModalAlert
             show={show}
@@ -15,11 +40,11 @@ const ModalChooseImg = ({ show, setShow }) => {
             <Block
                 style={styles.container}
             >
-                <MyButton marginVertical={10}>
-                    <MyText>Library</MyText>
+                <MyButton marginVertical={10} onPress={choosePhotoFromLibrary}>
+                    <MyText size={16}>Library</MyText>
                 </MyButton>
-                <MyButton marginVertical={10}>
-                    <MyText>Camera</MyText>
+                <MyButton marginVertical={10} onPress={takePhotoFromToCamera}>
+                    <MyText size={16}>Camera</MyText>
                 </MyButton>
             </Block>
         </ModalAlert>
