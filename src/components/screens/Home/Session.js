@@ -2,14 +2,13 @@ import { Button, Dimensions, Image, StyleSheet, Text, View, Platform, Permission
 import React, { useEffect, useState } from 'react'
 import Block from '../../common/Block'
 import { useDispatch, useSelector } from 'react-redux'
-import { emailSelector, ranSelector, userInfoSelector } from '../../../redux/selectors/userSelector'
+import { emailSelector, firstSelector, ranSelector, userInfoSelector } from '../../../redux/selectors/userSelector'
 import { theme } from '../../../theme'
 import MyButton from '../../common/MyButton'
 import ProgressBarWalk from '../Reuse/ProgressBarWalk'
 import { ranLimitSelector } from '../../../redux/selectors/walkSelector'
 import { onGetRan, sendPositionRunStart } from '../../../redux/slices/waklSlice'
 import MyText from '../../common/MyText'
-// import * as Location from 'expo-location'
 import Geolocation from 'react-native-geolocation-service'
 import { navigate } from '../../navigations/navigationRef'
 import { contants } from '../../../utils/contants'
@@ -41,7 +40,6 @@ const Session = ({ navigation }) => {
     if (Platform.OS === 'ios') {
       try {
         const permissionStatus = await Geolocation.requestAuthorization('whenInUse')
-        console.log('permissioonStatus: ', permissionStatus)
         if (permissionStatus === 'granted') {
           return resolve('granted')
         }
@@ -69,8 +67,9 @@ const Session = ({ navigation }) => {
     } else {
       alert('You have denied location access!')
     }
+  }
 
-    // const { status } = await Location.requestForegroundPermissionsAsync()
+      // const { status } = await Location.requestForegroundPermissionsAsync()
     // if (status !== 'granted') {
     //   alert('You have denied location access')
     //   return
@@ -92,7 +91,6 @@ const Session = ({ navigation }) => {
     //   alert('Has an error please again!')
     //   setLoading(false)
     // }
-  }
 
   return (
     <Block marginTop={20} alignCenter>

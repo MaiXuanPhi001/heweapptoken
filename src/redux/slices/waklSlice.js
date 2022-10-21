@@ -1,7 +1,7 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { getProfile, login } from "../../api/userApi";
-import { getRan, sendPositionStart, getAllRun, distanceDetail } from "../../api/walkApi";
+import { getRan, sendPositionStart, getAllRun, distanceDetail, sendPositionUpdate, sendPositionEnd } from "../../api/walkApi";
 import { contants } from "../../utils/contants";
 
 const walkSlice = createSlice({
@@ -9,8 +9,6 @@ const walkSlice = createSlice({
     initialState: {
         loading: false,
         ranLimit: null,
-        latitudeStart: null,
-        longitudeStart: null,
         totalRun: [],
         detailRun: {}
     },
@@ -20,12 +18,6 @@ const walkSlice = createSlice({
             .addCase(onGetRan.fulfilled, (state, action) => {
                 if (action.payload.status) {
                     state.ranLimit = action.payload.data
-                }
-            })
-            .addCase(sendPositionRunStart.fulfilled, (state, action) => {
-                if (action.payload.status) {
-                    state.latitudeStart = action.payload.position.latitudeStart
-                    state.longitudeStart = action.payload.position.longitudeStart
                 }
             })
             .addCase(getTotalRun.fulfilled, (state, action) => {
@@ -51,16 +43,18 @@ export const onGetRan = createAsyncThunk('walk/ranlimit', async () => {
 })
 
 export const sendPositionRunStart = createAsyncThunk('walk/positionStart', async (position) => {
-    let arrLastPosition = []
-    arrLastPosition.push({
-        latitude: position.latitudeStart,
-        longitude: position.longitudeStart,
-        ran: 0,
-        email: position.email
-    })
-    await AsyncStorage.setItem(contants.LAST_POSITION_USER, JSON.stringify(arrLastPosition))
     const res = await sendPositionStart(position)
     return { status: res.status, position }
+})
+
+export const onSendPositionUpdate = createAsyncThunk('walk/positionUpdate', async (position) => {
+    const res = await sendPositionUpdate(position)
+    return res
+})
+
+export const onSendPositionEnd = createAsyncThunk('walk/positionEnd', async (position) => {
+    const res = await sendPositionEnd(position)
+    return res
 })
 
 export const getTotalRun = createAsyncThunk('walk/getTotalRun', async () => {

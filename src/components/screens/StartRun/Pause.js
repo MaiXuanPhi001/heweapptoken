@@ -5,8 +5,14 @@ import MyText from '../../common/MyText'
 import Img from '../../common/Img'
 import { theme } from '../../../theme'
 import MyButton from '../../common/MyButton'
+import { alertGoBack } from '../../../method/alert'
 
-const Pause = ({ pause, setPause, distance }) => {
+const Pause = ({ pause, setPause, distance, walkEnd }) => {
+
+    const onBack = () => {
+        alertGoBack(walkEnd)
+    }
+
     return (
         <Block
             row
@@ -30,7 +36,7 @@ const Pause = ({ pause, setPause, distance }) => {
                     </MyButton>
                     :
                     <>
-                        <MyButton>
+                        <MyButton onPress={onBack}>
                             <Img
                                 width={50}
                                 height={50}

@@ -16,7 +16,7 @@ const ScroollAreaView = ({
             paddingHorizontal={paddingHorizontal}
             paddingBottom={paddingBottom}
         >
-            <SafeAreaView>
+            <SafeAreaView style={{flex: 1}}>
                 {children}
             </SafeAreaView>
         </Scroll>

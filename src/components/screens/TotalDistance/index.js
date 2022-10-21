@@ -29,7 +29,10 @@ const TotalDistance = ({ navigation }) => {
     <ScroollAreaView>
       <OpenDrawer navigation={navigation} />
       <Block>
-        {totalRun.map(item => <TotalRunItem key={item.id} item={item} />)}
+        {totalRun.map(item => {
+          if (item.ran === 0) return 
+          return <TotalRunItem key={item.id} item={item} />
+        })}
       </Block>
     </ScroollAreaView>
   )

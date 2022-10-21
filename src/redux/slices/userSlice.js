@@ -60,6 +60,12 @@ export const onGetProfile = createAsyncThunk('user/getProfile', async () => {
                     latitudeEnd: positionEnd?.latitude,
                     ran: positionEnd?.ran
                 })
+            } else {
+                await sendPositionEnd({
+                    longitudeEnd: '',
+                    latitudeEnd: '',
+                    ran: 0
+                })
             }
         }
     }

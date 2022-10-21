@@ -33,7 +33,7 @@ const SpeedPosition = ({ second, distance, pace }) => {
                     size={100}
                     thickness={7}
                     animated={true}
-                    progress={6 / 100}
+                    progress={pace / 100}
                     color={theme.colors.aqua}
                     unfilledColor={theme.colors.white}
                 />
@@ -47,7 +47,7 @@ const SpeedPosition = ({ second, distance, pace }) => {
                     color={theme.colors.white}
                     size={20}
                 >
-                    {distance.toFixed(4)}
+                    {distance.toFixed(3)}
                 </MyText>
                 <MyText
                     color={theme.colors.white}

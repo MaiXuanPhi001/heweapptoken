@@ -6,13 +6,17 @@ import HeaderPosition from './HeaderPosition'
 import SpeedPosition from './SpeedPosition'
 import Pause from './Pause'
 
-const Position = ({ pause, setPause, second, distance, pace, arrPosition }) => {
+const Position = ({ pause, setPause, second, distance, pace, arrPosition, walkEnd }) => {
     return (
         <Block
             backgroundColor={theme.colors.lightGreen}
             paddingHorizontal={10}
         >
-            <HeaderPosition arrPosition={arrPosition} distance={distance} />
+            <HeaderPosition
+                arrPosition={arrPosition}
+                distance={distance}
+                walkEnd={walkEnd}
+            />
             <SpeedPosition
                 second={second}
                 distance={distance}
@@ -22,6 +26,7 @@ const Position = ({ pause, setPause, second, distance, pace, arrPosition }) => {
                 pause={pause}
                 setPause={setPause}
                 distance={distance}
+                walkEnd={walkEnd}
             />
         </Block>
     )

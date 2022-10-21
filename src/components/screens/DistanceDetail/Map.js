@@ -33,7 +33,11 @@ const Map = ({ data }) => {
                 isPaddingAdnroid
             >
                 <MyText marginVertical={10}>{formatDate(data.detailRun.created_at)}</MyText>
-                <Block row alignCenter>
+                <Block
+                    row
+                    alignCenter
+                    marginBottom={15}
+                >
                     <Img
                         width={60}
                         height={60}
@@ -61,7 +65,6 @@ const Map = ({ data }) => {
 
             <MapView
                 style={{ height: '100%' }}
-                provider={'google'}
                 initialRegion={{  // chuyển đến vị trí marker
                     latitude: data.array[data.array.length - 1].latitude,
                     longitude: data.array[data.array.length - 1].longitude,

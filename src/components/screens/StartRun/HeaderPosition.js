@@ -1,44 +1,16 @@
-import { Alert, BackHandler, StyleSheet, Text, View } from 'react-native'
 import React, { useEffect } from 'react'
 import Block from '../../common/Block'
 import MyButton from '../../common/MyButton'
-import { goBack } from '../../navigations/navigationRef'
 import MyText from '../../common/MyText'
 import Img from '../../common/Img'
 import { theme } from '../../../theme'
-import { sendPositionEnd } from '../../../api/walkApi'
-import { useSelector } from 'react-redux'
-import { longtiudeStartSelector, latiudeStartSelector } from '../../../redux/selectors/walkSelector'
+import { alertGoBack } from '../../../method/alert'
 
-const HeaderPosition = ({arrPosition, distance}) => {
+const HeaderPosition = ({arrPosition, distance, walkEnd}) => {
 
-    const latitudeStart = useSelector(latiudeStartSelector)
-    const longitudeStart = useSelector(longtiudeStartSelector)
-
-    // const backAction = () => {
-    //     Alert.alert("Hold on!", "Are you sure you want to go back?", [
-    //         {
-    //             text: "Cancel",
-    //             onPress: () => null,
-    //             style: "cancel"
-    //         },
-    //         { text: "YES", onPress: walkEnd }
-    //     ])
-    // }
-
-    // const walkEnd = async () => {
-    //     const lastPosition = arrPosition.length === 0 ?
-    //       { longitude: longitudeStart, latitude: latitudeStart } :
-    //       arrPosition[arrPosition.length - 1]
-    
-    //     await sendPositionEnd({
-    //       longitudeEnd: lastPosition.longitude,
-    //       latitudeEnd: lastPosition.latitude,
-    //       ran: distance.toFixed(2)
-    //     })
-    //     goBack()
-    //   }
-
+    const onBack = () => {
+        alertGoBack(walkEnd)
+    }
 
     return (
         <Block
@@ -52,7 +24,7 @@ const HeaderPosition = ({arrPosition, distance}) => {
             borderBottomLeftRadius={10}
             borderBottomRightRadius={10}
         >
-            <MyButton onPress={() => null}>
+            <MyButton onPress={onBack}>
                 <Img
                     resizeMode={'contain'}
                     width={20}
