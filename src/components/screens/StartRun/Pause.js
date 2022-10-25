@@ -58,8 +58,12 @@ const Pause = ({ pause, setPause, distance, walkEnd }) => {
                 }
             </Block>
             <Block alignCenter>
-                <MyText color={theme.colors.white} size={20}>+ {(distance * 10).toFixed(2)}</MyText>
-                <Img url={require('../../../assets/images/coin.png')} />
+                <MyText color={theme.colors.white} size={20}>+ {(distance).toFixed(2)}</MyText>
+                <Img
+                    height={35}
+                    width={35}
+                    url={require('../../../assets/images/coin.png')}
+                />
             </Block>
         </Block>
     )

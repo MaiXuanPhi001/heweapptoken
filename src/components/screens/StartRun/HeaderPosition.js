@@ -5,8 +5,11 @@ import MyText from '../../common/MyText'
 import Img from '../../common/Img'
 import { theme } from '../../../theme'
 import { alertGoBack } from '../../../method/alert'
+import { useSelector } from 'react-redux'
+import { balanceSelector } from '../../../redux/selectors/userSelector'
 
-const HeaderPosition = ({arrPosition, distance, walkEnd}) => {
+const HeaderPosition = ({ arrPosition, distance, walkEnd }) => {
+    const balance = useSelector(balanceSelector)
 
     const onBack = () => {
         alertGoBack(walkEnd)
@@ -17,7 +20,7 @@ const HeaderPosition = ({arrPosition, distance, walkEnd}) => {
             width={'100%'}
             backgroundColor={theme.colors.white}
             row
-            height={40}
+            height={60}
             paddingHorizontal={10}
             justifySpaceBetween
             alignCenter
@@ -27,18 +30,24 @@ const HeaderPosition = ({arrPosition, distance, walkEnd}) => {
             <MyButton onPress={onBack}>
                 <Img
                     resizeMode={'contain'}
-                    width={20}
+                    width={30}
                     url={require('../../../assets/images/leftarrow.png')}
                 />
             </MyButton>
-            <MyText fontWeightBold size={18}>Running</MyText>
+            <MyText fontWeightBold size={20}>Running</MyText>
             <Block row alignCenter>
                 <Img
                     resizeMode={'contain'}
-                    width={20}
+                    width={30}
                     url={require('../../../assets/images/coin.png')}
                 />
-                <MyText>0.5</MyText>
+                <MyText
+                    marginLeft={10}
+                    fontWeightBold
+                    size={16}
+                >
+                    {balance}
+                </MyText>
             </Block>
         </Block>
     )

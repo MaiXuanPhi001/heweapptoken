@@ -29,6 +29,7 @@ const OpenDrawer = ({ navigation }) => {
                 </MyText>
                 <Img
                     width={30}
+                    height={30}
                     resizeMode={'contain'}
                     source={require('../../../assets/images/coin.png')}
                 />

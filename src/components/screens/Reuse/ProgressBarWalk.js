@@ -11,22 +11,28 @@ const ProgressBarWalk = ({ ran, ranLimit, color, unfilledColor, url }) => {
     return (
         <Block marginVertical={10}>
             <ProgressBar
-                progress={ran / 10} width={width - 100}
+                progress={ran / 10}
+                width={width - 100}
                 color={color}
                 unfilledColor={unfilledColor}
-                height={30}
+                height={40}
                 borderRadius={10}
             />
             <Block
                 row
                 absolute
-                top={2}
+                top={7}
                 left={5}
                 alignCenter
             >
-                <Img marginRight={5} url={url} />
-                <MyText>{ran}/</MyText>
-                <MyText>{ranLimit}</MyText>
+                <Img
+                    height={30}
+                    width={30}
+                    marginRight={5}
+                    url={url}
+                />
+                <MyText fontWeightBold size={16}>{ran}/</MyText>
+                <MyText fontWeightBold size={16}>{ranLimit}</MyText>
             </Block>
         </Block>
     )

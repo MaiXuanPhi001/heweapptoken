@@ -22,8 +22,6 @@ const Session = ({ navigation }) => {
   const [loading, setLoading] = useState(false)
   const [permision, setPermission] = useState('')
 
-  const emailUser = useSelector(emailSelector)
-
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -68,29 +66,6 @@ const Session = ({ navigation }) => {
       alert('You have denied location access!')
     }
   }
-
-      // const { status } = await Location.requestForegroundPermissionsAsync()
-    // if (status !== 'granted') {
-    //   alert('You have denied location access')
-    //   return
-    // }
-    // setLoading(true)
-    // const location = await Location.getCurrentPositionAsync({})
-    // const payload = unwrapResult(
-    //   await dispatch(sendPositionRunStart({
-    //     longitudeStart: location.coords.longitude,
-    //     latitudeStart: location.coords.latitude,
-    //     email: emailUser
-    //   }))
-    // )
-
-    // if (payload.status) {
-    //   setLoading(false)
-    //   navigate(contants.screen.STARTRUN)
-    // } else {
-    //   alert('Has an error please again!')
-    //   setLoading(false)
-    // }
 
   return (
     <Block marginTop={20} alignCenter>

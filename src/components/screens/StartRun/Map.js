@@ -17,13 +17,23 @@ const Map = ({ arrPosition }) => {
             }}
         >
             <Marker
-                coordinate={arrPosition[arrPosition.length - 1]}
-                pinColor={'red'}
-                title={"Vị trí của bạn"}
-                description={"Vị trí hiện tại của bạn"}
+                style={styles.market}
+                coordinate={arrPosition[0]}
+                title={'Starting position'}
+                description={'Your starting position'}
             >
                 <Pin />
             </Marker>
+
+            <Marker
+                style={styles.market}
+                coordinate={arrPosition[arrPosition.length - 1]}
+                title={'Current position'}
+                description={'Your current location'}
+            >
+                <Pin />
+            </Marker>
+
             <Polyline
                 coordinates={arrPosition.map(position => position)}
                 strokeColor={theme.colors.orange2}
@@ -40,6 +50,10 @@ export default Map
 
 const styles = StyleSheet.create({
     map: {
-        height: 500
+        height: '70%'
+    },
+    market: {
+        width: 120,
+        height: 120
     }
 })

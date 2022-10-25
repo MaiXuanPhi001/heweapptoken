@@ -10,6 +10,7 @@ import moment from 'moment'
 import MyText from '../../common/MyText'
 import { goBack, navigate } from '../../navigations/navigationRef'
 import { contants } from '../../../utils/contants'
+import Empty from './Empty'
 
 const Map = ({ data }) => {
     const formatSecond = second => moment.utc(moment.duration(second, 's').asMilliseconds()).format('H:mm:ss')
@@ -63,39 +64,58 @@ const Map = ({ data }) => {
                 </Block>
             </Block>
 
-            <MapView
-                style={{ height: '100%' }}
-                initialRegion={{  // chuyển đến vị trí marker
-                    latitude: data.array[data.array.length - 1].latitude,
-                    longitude: data.array[data.array.length - 1].longitude,
-                    latitudeDelta: 0.01,
-                    longitudeDelta: 0.01,
-                }}>
-
-                <Marker
-                    coordinate={{
+            {data.array.length === 0 ?
+                <Empty /> :
+                <MapView
+                    style={{ height: '100%' }}
+                    initialRegion={{  // chuyển đến vị trí marker
                         latitude: data.array[data.array.length - 1].latitude,
-                        longitude: data.array[data.array.length - 1].longitude
-                    }}
-                    pinColor={'red'}
-                    title={"title"}
-                    description={"description"}
-                >
-                    <Pin />
-                </Marker>
-                <Polyline
-                    coordinates={data.array.map(position => ({ latitude: position.latitude, longitude: position.longitude }))}
-                    strokeColor={theme.colors.orange2}
-                    strokeColors={[
-                        theme.colors.orange2
-                    ]}
-                    strokeWidth={6}
-                />
-            </MapView>
+                        longitude: data.array[data.array.length - 1].longitude,
+                        latitudeDelta: 0.01,
+                        longitudeDelta: 0.01,
+                    }}>
+                    <Marker
+                        style={styles.market}
+                        coordinate={data.array[0]}
+                        title={'Starting position'}
+                        description={'Your starting position'}
+                    >
+                        <Pin />
+                    </Marker>
+
+                    <Marker
+                        style={styles.market}
+                        coordinate={{
+                            latitude: data.array[data.array.length - 1].latitude,
+                            longitude: data.array[data.array.length - 1].longitude
+                        }}
+                        pinColor={'red'}
+                        title={'Last position'}
+                        description={'Your last position'}
+                    >
+                        <Pin />
+                    </Marker>
+                    <Polyline
+                        coordinates={data.array.map(position => ({ latitude: position.latitude, longitude: position.longitude }))}
+                        strokeColor={theme.colors.orange2}
+                        strokeColors={[
+                            theme.colors.orange2
+                        ]}
+                        strokeWidth={6}
+                    />
+                </MapView>
+            }
+
+
         </SafeAreaView>
     )
 }
 
 export default Map
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+    market: {
+        width: 120,
+        height: 120
+    }
+})

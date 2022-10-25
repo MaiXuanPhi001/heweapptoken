@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, useWindowDimensions } from 'react-native'
+import { StyleSheet, Text, View, useWindowDimensions, ImageBackground } from 'react-native'
 import React from 'react'
 import Block from '../../common/Block'
 import { theme } from '../../../theme'
@@ -8,9 +8,8 @@ import Pause from './Pause'
 
 const Position = ({ pause, setPause, second, distance, pace, arrPosition, walkEnd }) => {
     return (
-        <Block
-            backgroundColor={theme.colors.lightGreen}
-            paddingHorizontal={10}
+        <ImageBackground
+            source={require('../../../assets/images/backgroupmobile.png')}
         >
             <HeaderPosition
                 arrPosition={arrPosition}
@@ -28,7 +27,7 @@ const Position = ({ pause, setPause, second, distance, pace, arrPosition, walkEn
                 distance={distance}
                 walkEnd={walkEnd}
             />
-        </Block>
+        </ImageBackground>
     )
 }
 
