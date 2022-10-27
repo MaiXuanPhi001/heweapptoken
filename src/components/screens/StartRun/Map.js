@@ -18,15 +18,6 @@ const Map = ({ arrPosition }) => {
         >
             <Marker
                 style={styles.market}
-                coordinate={arrPosition[0]}
-                title={'Starting position'}
-                description={'Your starting position'}
-            >
-                <Pin />
-            </Marker>
-
-            <Marker
-                style={styles.market}
                 coordinate={arrPosition[arrPosition.length - 1]}
                 title={'Current position'}
                 description={'Your current location'}
@@ -34,14 +25,14 @@ const Map = ({ arrPosition }) => {
                 <Pin />
             </Marker>
 
-            <Polyline
+            {/* <Polyline
                 coordinates={arrPosition.map(position => position)}
                 strokeColor={theme.colors.orange2}
                 strokeColors={[
                     theme.colors.orange2
                 ]}
                 strokeWidth={6}
-            />
+            /> */}
         </MapView>
     )
 }

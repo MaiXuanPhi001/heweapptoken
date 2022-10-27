@@ -65,7 +65,7 @@ const StartRun = () => {
       (error) => {
         console.log('error: ', error)
       },
-      { enableHighAccuracy: true, distanceFilter: 10 }
+      { enableHighAccuracy: true, distanceFilter: 5 }
     )
 
     Geolocation.getCurrentPosition(
