@@ -34,9 +34,9 @@ const StartRun = () => {
       if (!pause) { // nếu người dùng không bấm nút dừng thì đi tiếp
         setSecond(second + 1)
         if (paceEnabled) { // nếu paceEnabled = true có nghĩa nguời dùng đã đi dược 10m so vs khoảng cách trước đó
-          console.log('second: '+second+' || secondEnd: '+secondEnd)
+
           if ((second - secondEnd < 10) && arrayPosition.length > 0) return setPaceEnabled(false)
-          console.log('hi')
+
           if (arrayPosition.length >= 1) {
             const kilometers = distanceBetween(arrayPosition[arrayPosition.length - 1], position)
             const velocity = calculateVelocity(kilometers, second + 1, secondEnd)
@@ -62,7 +62,6 @@ const StartRun = () => {
   useEffect(() => {
     Geolocation.watchPosition(
       (position) => {
-        console.log('a')
         setPosition({ latitude: position.coords.latitude, longitude: position.coords.longitude })
         setPaceEnabled(true)
       },
@@ -74,7 +73,6 @@ const StartRun = () => {
 
     Geolocation.getCurrentPosition(
       (position) => {
-        console.log('b')
         setPosition({ latitude: position.coords.latitude, longitude: position.coords.longitude })
         setPaceEnabled(true)
       },
