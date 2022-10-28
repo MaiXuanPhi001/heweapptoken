@@ -13,7 +13,7 @@ const Profile = () => {
         justifyCenter
         alignCenter
       >
-        <MyText>Tính năng đang phát triển...</MyText>
+        <MyText>Feature is developing...</MyText>
       </Block>
     </ScroollAreaView>
   )
