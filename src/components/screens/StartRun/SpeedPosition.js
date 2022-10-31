@@ -34,11 +34,16 @@ const SpeedPosition = ({ second, distance, pace }) => {
                     thickness={7}
                     animated={true}
                     progress={pace / 100}
-                    color={theme.colors.aqua}
+                    color={pace >= 10 ? 'red' : theme.colors.aqua}
                     unfilledColor={theme.colors.white}
                 />
                 <Block absolute top={30} alignCenter>
-                    <MyText size={17} color={theme.colors.white}>{pace.toFixed(1)}</MyText>
+                    <MyText
+                        style={{color: pace >= 10 ? 'red' : 'white'}}
+                        size={17} color={theme.colors.white}
+                    >
+                        {pace.toFixed(1)}
+                    </MyText>
                     <MyText size={17} color={theme.colors.white}>Km/h</MyText>
                 </Block>
             </Block>

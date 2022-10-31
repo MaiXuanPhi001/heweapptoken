@@ -35,17 +35,17 @@ const StartRun = () => {
         setSecond(second + 1)
         if (paceEnabled) { // nếu paceEnabled = true có nghĩa nguời dùng đã đi dược 10m so vs khoảng cách trước đó
 
-          if ((second - secondEnd < 10) && arrayPosition.length > 0) return setPaceEnabled(false)
+          if ((second - secondEnd < 5) && arrayPosition.length > 0) return setPaceEnabled(false)
 
           if (arrayPosition.length >= 1) {
             const kilometers = distanceBetween(arrayPosition[arrayPosition.length - 1], position)
             const velocity = calculateVelocity(kilometers, second + 1, secondEnd)
             setPaceEnabled(false)
             addPosition()
-            setSecondEnd(second + 1) // lưu thời gian lúc người đó di chuyển đuọcư 10m
+            setSecondEnd(second + 1) // lưu thời gian lúc người đó di chuyển được 10m
+            setPace(velocity)
             if (velocity >= 10) return // nếu vận tốc lớn hơn 10 return 
             setDistance(distance + kilometers) // cộng dồn khoảng cách 
-            setPace(velocity)
           } else {
             dispatch(sendPositionRunStart({ longitudeStart: position.longitude, latitudeStart: position.latitude }))
           }
