@@ -2,6 +2,7 @@ export const contants = {
     HOSTING: 'https://hewe.club',
     STORAGE_KEY: 'token',
     LAST_POSITION_USER: 'lastPositionUser',
+    APP_SCHEME: 'hewetoken://',
     screen: {
         HELLO: 'Hello',
         LOGIN: 'Login',
@@ -10,6 +11,7 @@ export const contants = {
         HOME: 'Home',
         HOMESTACK: 'HomeStack',
         STARTRUN: 'StartRun',
+        RUN_START: 'RunStart',
         PROFILE: 'Profile',
         APPNAVIGATION: 'AppNavigation',
         HOMEDRAWER: 'HomeDrawer',

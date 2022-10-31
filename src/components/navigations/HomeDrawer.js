@@ -13,6 +13,7 @@ import Affiliate from '../screens/Affiliate'
 import Support from '../screens/Support'
 import DistanceDetail from '../screens/DistanceDetail'
 import RewardHistory from '../screens/RewardHistory'
+import SignUp from '../screens/SignUp'
 
 const Drawer = createDrawerNavigator();
 
@@ -33,6 +34,7 @@ const HomeDrawer = () => {
             <Drawer.Screen name={contants.screen.AFFILIATE} component={Affiliate} />
             <Drawer.Screen name={contants.screen.SUPPORT} component={Support} />
             <Drawer.Screen name={contants.screen.REWARDHISTORY} component={RewardHistory} />
+            <Drawer.Screen name={contants.screen.SIGNUP} component={SignUp} />
         </Drawer.Navigator>
     )
 }

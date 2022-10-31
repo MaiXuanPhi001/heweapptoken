@@ -35,7 +35,7 @@ const StartRun = () => {
         setSecond(second + 1)
         if (paceEnabled) { // nếu paceEnabled = true có nghĩa nguời dùng đã đi dược 10m so vs khoảng cách trước đó
 
-          if ((second - secondEnd < 5) && arrayPosition.length > 0) return setPaceEnabled(false)
+          if ((second - secondEnd < 10) && arrayPosition.length > 0) return setPaceEnabled(false)
 
           if (arrayPosition.length >= 1) {
             const kilometers = distanceBetween(arrayPosition[arrayPosition.length - 1], position)
@@ -68,7 +68,7 @@ const StartRun = () => {
       (error) => {
         console.log('error: ', error)
       },
-      { enableHighAccuracy: true, distanceFilter: 20 }
+      { enableHighAccuracy: true, distanceFilter: 50 }
     )
 
     Geolocation.getCurrentPosition(

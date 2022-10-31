@@ -26,7 +26,7 @@ const Session = ({ navigation }) => {
 
   useEffect(() => {
     dispatch(onGetRan())
-    getCurrentLocation()
+    // getCurrentLocation()
   }, [])
 
   const getCurrentLocation = async () => {
@@ -94,7 +94,8 @@ const Session = ({ navigation }) => {
         ranLimit={ranLimit}
       />
       <MyButton
-        onPress={handleRunStart}
+        // onPress={(handleRunStart)}
+        onPress={() => navigate(contants.screen.RUN_START)}
         disabled={loading}
         backgroundColor={theme.colors.lightGreen2}
         width={100}

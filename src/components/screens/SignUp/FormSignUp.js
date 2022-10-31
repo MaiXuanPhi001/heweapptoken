@@ -13,17 +13,22 @@ import { sendMailSignUp, signUp } from '../../../api/userApi'
 import VerifyCodeEmail from './VerifyCodeEmail'
 import { RadioButton } from 'react-native-paper'
 import RadioBtn from '../Reuse/RadioBtn'
+import { useDispatch, useSelector } from 'react-redux'
+import { referralSignUpSelector } from '../../../redux/selectors/userSelector'
+import userSlice from '../../../redux/slices/userSlice'
 
 const FormSignUp = () => {
     const [email, setEmail] = useState('')
     const [code, setCode] = useState('')
     const [password, setPassword] = useState('')
     const [confirmPassword, setConfirmPassword] = useState('')
-    const [referral, setReferral] = useState('hwf20022')
     const [gender, setGender] = useState(1)
     const [security, setSecurity] = useState(true)
     const [loading, setLoading] = useState(false)
     const [checkForm, setCheckForm] = useState(false)
+
+    const referral = useSelector(referralSignUpSelector)
+    const dispatch = useDispatch()
 
     const handleSignUp = async () => {
         setCheckForm(true)
@@ -136,7 +141,7 @@ const FormSignUp = () => {
 
             <MyInput
                 value={referral}
-                setValue={setReferral}
+                setValue={text => dispatch(userSlice.actions.changeReferral(text))}
                 width={'100%'}
                 height={40}
                 hint={'referral'}

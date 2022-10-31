@@ -8,12 +8,16 @@ const userSlice = createSlice({
     name: 'user',
     initialState: {
         isLogin: false,
-        userInfo: {}
+        userInfo: {},
+        referral: 'hwf20022'
     },
     reducers: {
         signOut: (state, action) => {
             state.userInfo = {}
             state.isLogin = false
+        },
+        changeReferral: (state, action) => {
+            state.referral = action.payload
         }
     },
     extraReducers: builder => {

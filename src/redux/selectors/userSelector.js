@@ -8,6 +8,8 @@ export const referralSelector = state => state.user.userInfo.referral
 
 export const genderSelector = state => state.user.userInfo.gender
 
+export const referralSignUpSelector = state => state.user.referral
+
 export const ranSelector = state => state.user.userInfo.ran.toFixed(2)
 
 export const balanceSelector = state => state.user.userInfo.balance.toFixed(2)
