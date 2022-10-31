@@ -94,8 +94,7 @@ const Session = ({ navigation }) => {
         ranLimit={ranLimit}
       />
       <MyButton
-        // onPress={(handleRunStart)}
-        onPress={() => navigate(contants.screen.RUN_START)}
+        onPress={(handleRunStart)}
         disabled={loading}
         backgroundColor={theme.colors.lightGreen2}
         width={100}
