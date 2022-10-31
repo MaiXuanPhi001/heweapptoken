@@ -37,12 +37,14 @@
 		</dict>
 		<key>NSCameraUsageDescription</key>
 		<string>heweapptoken requires camera access to take photo</string>
+
 		<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-		<string>get location</string>
+		<string>Our app is pedestrian app, we need location access to measure user walking distance</string>
 		<key>NSLocationAlwaysUsageDescription</key>
-		<string>get location</string>
+		<string>Our app is pedestrian app, we need location access to measure user walking distance</string>
 		<key>NSLocationWhenInUseUsageDescription</key>
-		<string/>
+		<string>Our app is pedestrian app, we need location access to measure user walking distance</string>
+
 		<key>NSPhotoLibraryUsageDescription</key>
 		<string>heweapptoken requires photo library access</string>
 		<key>UILaunchStoryboardName</key>

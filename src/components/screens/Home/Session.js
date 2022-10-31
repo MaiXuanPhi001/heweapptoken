@@ -26,7 +26,7 @@ const Session = ({ navigation }) => {
 
   useEffect(() => {
     dispatch(onGetRan())
-    // getCurrentLocation()
+    getCurrentLocation()
   }, [])
 
   const getCurrentLocation = async () => {
