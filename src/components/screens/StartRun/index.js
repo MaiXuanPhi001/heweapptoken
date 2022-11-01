@@ -23,6 +23,9 @@ const StartRun = () => {
   const [paceEnabled, setPaceEnabled] = useState(false)
   const [arrayPosition, setArrayPosition] = useState([])
   const [position, setPosition] = useState(true)
+  const [coin, setCoin] = useState(0)
+
+  const watchID = React.useRef(false)
 
   const dispatch = useDispatch()
 
@@ -33,9 +36,10 @@ const StartRun = () => {
     const timer = setTimeout(() => {
       if (!pause) { // nếu người dùng không bấm nút dừng thì đi tiếp
         setSecond(second + 1)
-        if (paceEnabled) { // nếu paceEnabled = true có nghĩa nguời dùng đã đi dược 10m so vs khoảng cách trước đó
+        if (paceEnabled) {
 
-          if ((second - secondEnd < 10) && arrayPosition.length > 0) return setPaceEnabled(false)
+          if ((second - secondEnd < 7) && arrayPosition.length > 0) return setPaceEnabled(false)
+          console.log('abc')
 
           if (arrayPosition.length >= 1) {
             const kilometers = distanceBetween(arrayPosition[arrayPosition.length - 1], position)
@@ -44,15 +48,16 @@ const StartRun = () => {
             addPosition()
             setSecondEnd(second + 1) // lưu thời gian lúc người đó di chuyển được 10m
             setPace(velocity)
-            if (velocity >= 10) return // nếu vận tốc lớn hơn 10 return 
-            setDistance(distance + kilometers) // cộng dồn khoảng cách 
+            setDistance(distance + kilometers)
+            if (velocity >= 10) return // nếu vận tốc lớn hơn 10 return (coin sẽ không được cộng)
+            setCoin(coin + kilometers) // cộng dồn coin 
           } else {
             dispatch(sendPositionRunStart({ longitudeStart: position.longitude, latitudeStart: position.latitude }))
           }
-          // Thêm vị trí vào mảng
+          // Thêm vị trí vào mảngß
           addPosition()
         } else {
-          if (second - secondEnd >= 20) setPace(0)
+          if (second - secondEnd >= 10) setPace(0)
         }
       }
     }, 1000)
@@ -60,7 +65,8 @@ const StartRun = () => {
   })
 
   useEffect(() => {
-    Geolocation.watchPosition(
+    // Cập nhập lại khi vị trí bị thay đổi
+    watchID.current = Geolocation.watchPosition(
       (position) => {
         setPosition({ latitude: position.coords.latitude, longitude: position.coords.longitude })
         setPaceEnabled(true)
@@ -68,20 +74,21 @@ const StartRun = () => {
       (error) => {
         console.log('error: ', error)
       },
-      { enableHighAccuracy: true, distanceFilter: 50 }
+      { enableHighAccuracy: true, distanceFilter: 50, fastestInterval: 1000 }
     )
 
-    Geolocation.getCurrentPosition(
-      (position) => {
-        setPosition({ latitude: position.coords.latitude, longitude: position.coords.longitude })
-        setPaceEnabled(true)
-      },
-      (error) => {
-        // See error code charts below.
-        console.log(error.code, error.message);
-      },
-      { enableHighAccuracy: true, timeout: 15000, maximumAge: 10000 }
-    )
+    // Lấy vị trí hiện tại
+    // Geolocation.getCurrentPosition(
+    //   (position) => {
+    //     setPosition({ latitude: position.coords.latitude, longitude: position.coords.longitude })
+    //     setPaceEnabled(true)
+    //   },
+    //   (error) => {
+    //     // See error code charts below.
+    //     console.log(error.code, error.message);
+    //   },
+    //   { enableHighAccuracy: true, timeout: 15000, maximumAge: 10000 }
+    // )
 
     const backAction = () => {
       alertGoBack(walkEnd)
@@ -90,7 +97,10 @@ const StartRun = () => {
 
     const backHandler = BackHandler.addEventListener('hardwareBackPress', backAction)
 
-    return () => backHandler.remove()
+    return () => {
+      backHandler.remove()
+      Geolocation.clearWatch(watchID.current);
+    }
   }, [])
 
   const addPosition = () => {
@@ -147,7 +157,7 @@ const StartRun = () => {
     await sendPositionEnd({
       longitudeEnd: lastPosition.longitude,
       latitudeEnd: lastPosition.latitude,
-      ran: distance.toFixed(2)
+      ran: coin.toFixed(2)
     })
     goBack()
   }
@@ -165,6 +175,7 @@ const StartRun = () => {
           pause={pause}
           setPause={setPause}
           walkEnd={walkEnd}
+          coin={coin}
         />
         {arrayPosition.length > 0 &&
           <Map arrPosition={arrayPosition} />

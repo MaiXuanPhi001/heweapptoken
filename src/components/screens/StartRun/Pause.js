@@ -7,7 +7,7 @@ import { theme } from '../../../theme'
 import MyButton from '../../common/MyButton'
 import { alertGoBack } from '../../../method/alert'
 
-const Pause = ({ pause, setPause, distance, walkEnd }) => {
+const Pause = ({ pause, setPause, distance, walkEnd, coin }) => {
 
     const onBack = () => {
         alertGoBack(walkEnd)
@@ -58,7 +58,7 @@ const Pause = ({ pause, setPause, distance, walkEnd }) => {
                 }
             </Block>
             <Block alignCenter>
-                <MyText color={theme.colors.white} size={20}>+ {(distance).toFixed(2)}</MyText>
+                <MyText color={theme.colors.white} size={20}>+ {coin.toFixed(2)}</MyText>
                 <Img
                     height={35}
                     width={35}

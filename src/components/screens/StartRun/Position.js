@@ -6,7 +6,7 @@ import HeaderPosition from './HeaderPosition'
 import SpeedPosition from './SpeedPosition'
 import Pause from './Pause'
 
-const Position = ({ pause, setPause, second, distance, pace, arrPosition, walkEnd }) => {
+const Position = ({ pause, setPause, second, distance, pace, arrPosition, walkEnd, coin }) => {
     return (
         <ImageBackground
             source={require('../../../assets/images/backgroupmobile.png')}
@@ -26,6 +26,7 @@ const Position = ({ pause, setPause, second, distance, pace, arrPosition, walkEn
                 setPause={setPause}
                 distance={distance}
                 walkEnd={walkEnd}
+                coin={coin}
             />
         </ImageBackground>
     )
