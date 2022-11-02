@@ -38,11 +38,12 @@ const StartRun = () => {
         setSecond(second + 1)
         if (paceEnabled) {
 
-          if ((second - secondEnd < 6) && arrayPosition.length > 0) return setPaceEnabled(false)
+          // if ((second - secondEnd < 6) && arrayPosition.length > 0) return setPaceEnabled(false)
 
           if (arrayPosition.length >= 1) {
             const kilometers = distanceBetween(arrayPosition[arrayPosition.length - 1], position)
             const velocity = calculateVelocity(kilometers, second + 1, secondEnd)
+            if (velocity < 3) return setPaceEnabled(false)
             setPaceEnabled(false)
             addPosition()
             setSecondEnd(second + 1) // lưu thời gian lúc người đó di chuyển được 10m
@@ -56,7 +57,7 @@ const StartRun = () => {
           // Thêm vị trí vào mảng
           addPosition()
         } else {
-          if (second - secondEnd >= 10) setPace(0)
+          if (second - secondEnd >= 15) setPace(0)
         }
       }
     }, 1000)
@@ -73,7 +74,7 @@ const StartRun = () => {
       (error) => {
         console.log('error: ', error)
       },
-      { enableHighAccuracy: true, distanceFilter: 50, fastestInterval: 1000 }
+      { enableHighAccuracy: true, distanceFilter: 1, fastestInterval: 1000 }
     )
 
     const backAction = () => {
