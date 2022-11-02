@@ -6,16 +6,13 @@ import HeaderPosition from './HeaderPosition'
 import SpeedPosition from './SpeedPosition'
 import Pause from './Pause'
 
-const Position = ({ pause, setPause, second, distance, pace, arrPosition, walkEnd, coin }) => {
+const Position = ({ pause, setPause, second, distance, pace, walkEnd, setShowMap }) => {
     return (
         <ImageBackground
-            source={require('../../../assets/images/backgroupmobile.png')}
+            style={styles.imgBg}
+            source={require('../../../assets/images/bg-start-run.png')}
         >
-            <HeaderPosition
-                arrPosition={arrPosition}
-                distance={distance}
-                walkEnd={walkEnd}
-            />
+            <HeaderPosition walkEnd={walkEnd} />
             <SpeedPosition
                 second={second}
                 distance={distance}
@@ -24,9 +21,8 @@ const Position = ({ pause, setPause, second, distance, pace, arrPosition, walkEn
             <Pause
                 pause={pause}
                 setPause={setPause}
-                distance={distance}
                 walkEnd={walkEnd}
-                coin={coin}
+                setShowMap={setShowMap}
             />
         </ImageBackground>
     )
@@ -34,4 +30,9 @@ const Position = ({ pause, setPause, second, distance, pace, arrPosition, walkEn
 
 export default Position
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+    imgBg: {
+        height: '100%',
+        alignItems: 'center'
+    }
+})

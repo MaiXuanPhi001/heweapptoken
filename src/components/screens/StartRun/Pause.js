@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React, { useState } from 'react'
 import Block from '../../common/Block'
 import MyText from '../../common/MyText'
@@ -7,7 +7,9 @@ import { theme } from '../../../theme'
 import MyButton from '../../common/MyButton'
 import { alertGoBack } from '../../../method/alert'
 
-const Pause = ({ pause, setPause, distance, walkEnd, coin }) => {
+const Pause = ({ pause, setPause, walkEnd, setShowMap }) => {
+
+    const size = 65
 
     const onBack = () => {
         alertGoBack(walkEnd)
@@ -15,21 +17,22 @@ const Pause = ({ pause, setPause, distance, walkEnd, coin }) => {
 
     return (
         <Block
-            row
-            justifySpaceAround
-            alignCenter
-            marginVertical={20}
+            style={styles.container}
         >
-            <Block alignCenter>
-                <MyText color={theme.colors.white} size={20}>0</MyText>
-                <Img url={require('../../../assets/images/bicycle.png')} />
-            </Block>
+            <TouchableOpacity onPress={() => setShowMap(true)}>
+                <Img
+                    width={40}
+                    height={40}
+                    radius={50}
+                    url={require('../../../assets/images/google-maps.png')}
+                />
+            </TouchableOpacity>
             <Block row alignCenter>
                 {!pause ?
                     <MyButton onPress={() => setPause(true)}>
                         <Img
-                            width={50}
-                            height={50}
+                            width={size}
+                            height={size}
                             resizeMode={'contain'}
                             url={require('../../../assets/images/controllers/pause-button.png')}
                         />
@@ -38,8 +41,8 @@ const Pause = ({ pause, setPause, distance, walkEnd, coin }) => {
                     <>
                         <MyButton onPress={onBack}>
                             <Img
-                                width={50}
-                                height={50}
+                                width={size}
+                                height={size}
                                 resizeMode={'contain'}
                                 marginRight={10}
                                 url={require('../../../assets/images/controllers/stop-button.png')}
@@ -47,8 +50,8 @@ const Pause = ({ pause, setPause, distance, walkEnd, coin }) => {
                         </MyButton>
                         <MyButton onPress={() => setPause(false)}>
                             <Img
-                                width={50}
-                                height={50}
+                                width={size}
+                                height={size}
                                 resizeMode={'contain'}
                                 url={require('../../../assets/images/controllers/play-button.png')}
                                 marginLeft={10}
@@ -57,18 +60,25 @@ const Pause = ({ pause, setPause, distance, walkEnd, coin }) => {
                     </>
                 }
             </Block>
-            <Block alignCenter>
-                <MyText color={theme.colors.white} size={20}>+ {coin.toFixed(2)}</MyText>
-                <Img
-                    height={35}
-                    width={35}
-                    url={require('../../../assets/images/coin.png')}
-                />
-            </Block>
+            <Img
+                width={40}
+                height={40}
+                radius={50}
+                url={require('../../../assets/images/icon.png')}
+            />
         </Block>
     )
 }
 
 export default Pause
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+    container: {
+        position: 'absolute',
+        width: '80%',
+        flexDirection: 'row',
+        justifyContent: 'space-around',
+        alignItems: 'center',
+        bottom: 40
+    }
+})

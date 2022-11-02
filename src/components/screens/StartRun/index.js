@@ -23,7 +23,7 @@ const StartRun = () => {
   const [paceEnabled, setPaceEnabled] = useState(false)
   const [arrayPosition, setArrayPosition] = useState([])
   const [position, setPosition] = useState(true)
-  const [coin, setCoin] = useState(0)
+  const [showMap, setShowMap] = useState(false)
 
   const watchID = React.useRef(false)
 
@@ -38,8 +38,7 @@ const StartRun = () => {
         setSecond(second + 1)
         if (paceEnabled) {
 
-          if ((second - secondEnd < 7) && arrayPosition.length > 0) return setPaceEnabled(false)
-          console.log('abc')
+          if ((second - secondEnd < 6) && arrayPosition.length > 0) return setPaceEnabled(false)
 
           if (arrayPosition.length >= 1) {
             const kilometers = distanceBetween(arrayPosition[arrayPosition.length - 1], position)
@@ -48,13 +47,13 @@ const StartRun = () => {
             addPosition()
             setSecondEnd(second + 1) // lưu thời gian lúc người đó di chuyển được 10m
             setPace(velocity)
+            if (velocity >= 10) return // nếu vận tốc lớn hơn 10 return (km sẽ không được cộng)
             setDistance(distance + kilometers)
-            if (velocity >= 10) return // nếu vận tốc lớn hơn 10 return (coin sẽ không được cộng)
-            setCoin(coin + kilometers) // cộng dồn coin 
           } else {
+            // if arrayPosition.length === 1 gửi vị trí bắt đầu lên server
             dispatch(sendPositionRunStart({ longitudeStart: position.longitude, latitudeStart: position.latitude }))
           }
-          // Thêm vị trí vào mảngß
+          // Thêm vị trí vào mảng
           addPosition()
         } else {
           if (second - secondEnd >= 10) setPace(0)
@@ -76,19 +75,6 @@ const StartRun = () => {
       },
       { enableHighAccuracy: true, distanceFilter: 50, fastestInterval: 1000 }
     )
-
-    // Lấy vị trí hiện tại
-    // Geolocation.getCurrentPosition(
-    //   (position) => {
-    //     setPosition({ latitude: position.coords.latitude, longitude: position.coords.longitude })
-    //     setPaceEnabled(true)
-    //   },
-    //   (error) => {
-    //     // See error code charts below.
-    //     console.log(error.code, error.message);
-    //   },
-    //   { enableHighAccuracy: true, timeout: 15000, maximumAge: 10000 }
-    // )
 
     const backAction = () => {
       alertGoBack(walkEnd)
@@ -157,7 +143,7 @@ const StartRun = () => {
     await sendPositionEnd({
       longitudeEnd: lastPosition.longitude,
       latitudeEnd: lastPosition.latitude,
-      ran: coin.toFixed(2)
+      ran: distance.toFixed(2)
     })
     goBack()
   }
@@ -167,18 +153,26 @@ const StartRun = () => {
       flexGrow={1}
       isPaddingAdnroid
     >
-      <SafeAreaView>
-        <Position
-          second={second}
-          distance={distance}
-          pace={pace}
-          pause={pause}
-          setPause={setPause}
-          walkEnd={walkEnd}
-          coin={coin}
-        />
-        {arrayPosition.length > 0 &&
-          <Map arrPosition={arrayPosition} />
+      <SafeAreaView flex={1}>
+        {!showMap &&
+          <Position
+            second={second}
+            distance={distance}
+            pace={pace}
+            pause={pause}
+            setPause={setPause}
+            walkEnd={walkEnd}
+            setShowMap={setShowMap}
+          />
+        }
+
+        {(arrayPosition.length > 0 && showMap) &&
+          <Map
+            arrPosition={arrayPosition}
+            distance={distance}
+            pace={pace}
+            setShowMap={setShowMap}
+          />
         }
       </SafeAreaView>
     </Scroll>
