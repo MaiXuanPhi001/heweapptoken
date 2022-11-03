@@ -85,7 +85,6 @@ export const rewardHistory = async () => {
 export const deleteAccount = async () => {
     try {
         const res = await axiosInstance.post('/api/user/removeAccount', {})
-        console.log('res: ', res)
         return res
     } catch (error) {
         return { status: false, message: 'Has an error please again' }

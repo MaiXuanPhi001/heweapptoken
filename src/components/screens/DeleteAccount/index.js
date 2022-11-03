@@ -18,7 +18,6 @@ const DeleteAccount = () => {
 
   const handleRemoveAccount = async () => {
     const payload = unwrapResult(await dispatch(removeAccount()))
-    console.log('payload: ', payload)
     !payload.status && Alert.alert(payload.message)
   }
 
