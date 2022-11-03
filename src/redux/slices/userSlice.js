@@ -1,6 +1,6 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { getProfile, login } from "../../api/userApi";
+import { deleteAccount, getProfile, login } from "../../api/userApi";
 import { sendPositionEnd } from "../../api/walkApi";
 import { contants } from "../../utils/contants";
 
@@ -36,6 +36,10 @@ const userSlice = createSlice({
                 if (action.payload.status) {
                     state.userInfo = action.payload.data
                 }
+            })
+            .addCase(removeAccount.fulfilled, (state, action) => {
+                state.userInfo = {}
+                state.isLogin = false
             })
     }
 })
@@ -73,6 +77,12 @@ export const onGetProfile = createAsyncThunk('user/getProfile', async () => {
             }
         }
     }
+    return res
+})
+
+export const removeAccount = createAsyncThunk('user/deleteAccount', async () => {
+    const res = await deleteAccount()
+    res.status && await AsyncStorage.clear()
     return res
 })
 

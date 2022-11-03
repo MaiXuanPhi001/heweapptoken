@@ -16,8 +16,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 const FormLogin = () => {
     const ditpatch = useDispatch()
 
-    const [email, setEmail] = useState('test321@gmail.com')
-    const [password, setPassword] = useState('123123')
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
     const [security, setSecurity] = useState(true)
     const [loading, setLoading] = useState(false)
 

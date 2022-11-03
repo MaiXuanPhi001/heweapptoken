@@ -2,9 +2,9 @@ import { StyleSheet, Text, View } from 'react-native'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import React from 'react'
 import { contants } from '../../utils/contants';
-import Profile from '../screens/Profile';
 import HomeDrawer from './HomeDrawer';
 import Img from '../common/Img';
+import ProfileStack from './ProfileStack';
 
 const Tab = createBottomTabNavigator();
 
@@ -27,8 +27,8 @@ const HomeTab = () => {
         }}
       />
       <Tab.Screen
-        name={contants.screen.PROFILE}
-        component={Profile}
+        name={contants.screen.PROFILE_STACK}
+        component={ProfileStack}
         options={{
           tabBarIcon: ({ focused }) => {
             if (focused) return <Img url={require('../../assets/images/tabicons/user2.png')} />

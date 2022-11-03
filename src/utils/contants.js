@@ -13,6 +13,7 @@ export const contants = {
         STARTRUN: 'StartRun',
         RUN_START: 'RunStart',
         PROFILE: 'Profile',
+        PROFILE_STACK: 'ProfileStack',
         APPNAVIGATION: 'AppNavigation',
         HOMEDRAWER: 'HomeDrawer',
         RUN: 'Run',
@@ -24,6 +25,7 @@ export const contants = {
         KYC: 'KYC',
         AFFILIATE: 'Affiliate',
         SUPPORT: 'Support',
-        REWARDHISTORY: 'RewardHistory'
+        REWARDHISTORY: 'RewardHistory',
+        DELETE_ACCOUNT: 'DeleteAccount',
     }
 }

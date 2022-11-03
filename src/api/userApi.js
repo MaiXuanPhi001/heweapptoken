@@ -42,7 +42,7 @@ export const changePassword = async (changePassword) => {
         const res = await fetchPOST('/api/user/changePassword', changePassword)
         return await res.json()
     } catch (error) {
-        return { status: falseÏ, message: 'Has an error please again' }
+        return { status: false, message: 'Has an error please again' }
     }
 }
 
@@ -76,6 +76,16 @@ export const support = async (message) => {
 export const rewardHistory = async () => {
     try {
         const res = await axiosInstance.post('/api/binaryOption/getCommission', { limit: 10, page: 1 })
+        return res
+    } catch (error) {
+        return { status: false, message: 'Has an error please again' }
+    }
+}
+
+export const deleteAccount = async () => {
+    try {
+        const res = await axiosInstance.post('/api/user/removeAccount', {})
+        console.log('res: ', res)
         return res
     } catch (error) {
         return { status: false, message: 'Has an error please again' }

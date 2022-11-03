@@ -29,7 +29,6 @@ const Login = () => {
     })
 
     DeepLinking.addRoute('/signup/:referral', res => {
-      console.log('referral: ', res.referral)
       dispatch(userSlice.actions.changeReferral(res.referral))
       navigate(contants.screen.SIGNUP)
     })

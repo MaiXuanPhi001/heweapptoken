@@ -3,17 +3,16 @@ import React from 'react'
 import ScroollAreaView from '../Reuse/ScroollAreaView'
 import Block from '../../common/Block'
 import MyText from '../../common/MyText'
+import Item from './Item'
 
 const Profile = () => {
   return (
-    <ScroollAreaView>
+    <ScroollAreaView paddingHorizontal={20}>
       <Block
         flex={1}
         backgroundColor={'white'}
-        justifyCenter
-        alignCenter
       >
-        <MyText>Feature is developing...</MyText>
+        <Item />
       </Block>
     </ScroollAreaView>
   )
