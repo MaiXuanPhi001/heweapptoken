@@ -25,6 +25,8 @@ const StartRun = () => {
   const [position, setPosition] = useState(true)
   const [showMap, setShowMap] = useState(false)
 
+  const [resetPace, setResetPace] = useState(0)
+
   const watchID = React.useRef(false)
 
   const dispatch = useDispatch()
@@ -42,8 +44,15 @@ const StartRun = () => {
 
           if (arrayPosition.length >= 1) {
             const kilometers = distanceBetween(arrayPosition[arrayPosition.length - 1], position)
-            const velocity = calculateVelocity(kilometers, second + 1, secondEnd)
-            if (velocity < 3) return setPaceEnabled(false)
+            
+            const velocity = calculateVelocity(0.001, second + 1, secondEnd)
+            setSecondEnd(second + 1)
+
+            if (velocity < 2) {
+              setResetPace(resetPace + 1)
+              return setPaceEnabled(false)
+            }
+
             setPaceEnabled(false)
             addPosition()
             setSecondEnd(second + 1) // lưu thời gian lúc người đó di chuyển được 10m
@@ -57,7 +66,9 @@ const StartRun = () => {
           // Thêm vị trí vào mảng
           addPosition()
         } else {
-          if (second - secondEnd >= 15) setPace(0)
+          if (second - secondEnd >= 5 || resetPace >= 5) {
+            setPace(0)
+          }
         }
       }
     }, 1000)
