@@ -6,7 +6,7 @@ import Position from './Position'
 import Scroll from '../../common/Scroll'
 import Map from './Map'
 import { useDispatch, useSelector } from 'react-redux'
-import { onSendPositionEnd, sendPositionRunStart } from '../../../redux/slices/waklSlice'
+import { onSendPositionEnd, onSendPositionUpdate, sendPositionRunStart } from '../../../redux/slices/waklSlice'
 import { sendPositionEnd, sendPositionUpdate } from '../../../api/walkApi'
 import { emailSelector } from '../../../redux/selectors/userSelector'
 import AsyncStorage from '@react-native-async-storage/async-storage'
@@ -45,20 +45,20 @@ const StartRun = () => {
           if (arrayPosition.length >= 1) {
             const kilometers = distanceBetween(arrayPosition[arrayPosition.length - 1], position)
             
-            const velocity = calculateVelocity(0.001, second + 1, secondEnd)
+            const velocity = calculateVelocity(kilometers, second + 1, secondEnd)
             setSecondEnd(second + 1)
 
             if (velocity < 2) {
+              console.log('abc')
               setResetPace(resetPace + 1)
               return setPaceEnabled(false)
             }
 
             setPaceEnabled(false)
-            addPosition()
+            // addPosition()
             setSecondEnd(second + 1) // lưu thời gian lúc người đó di chuyển được 10m
             setPace(velocity)
-            if (velocity >= 10) return // nếu vận tốc lớn hơn 10 return (km sẽ không được cộng)
-            setDistance(distance + kilometers)
+            if (velocity < 10) setDistance(distance + kilometers)// nếu vận tốc lớn hơn 10 return (km sẽ không được cộng)
           } else {
             // if arrayPosition.length === 1 gửi vị trí bắt đầu lên server
             dispatch(sendPositionRunStart({ longitudeStart: position.longitude, latitudeStart: position.latitude }))
@@ -66,7 +66,8 @@ const StartRun = () => {
           // Thêm vị trí vào mảng
           addPosition()
         } else {
-          if (second - secondEnd >= 5 || resetPace >= 5) {
+          if (second - secondEnd >= 10 || resetPace >= 10) {
+            setResetPace(0)
             setPace(0)
           }
         }
@@ -108,7 +109,7 @@ const StartRun = () => {
         arrayPosition[arrayPosition.length - 1].longitude === position.longitude) return
     }
     setArrayPosition([...arrayPosition, position])
-    sendPositionUpdate(position)
+    dispatch(onSendPositionUpdate(position))
     savePositionLocal(position)
   }
 
