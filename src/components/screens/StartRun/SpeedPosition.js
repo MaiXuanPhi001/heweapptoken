@@ -50,7 +50,7 @@ const SpeedPosition = ({ second, distance, pace }) => {
                         >
                             {pace.toFixed(1)}
                         </MyText>
-                        <MyText size={17} color={theme.colors.white}>Km/h</MyText>
+                        <MyText size={15} color={theme.colors.white}>Km/h</MyText>
                     </Block>
                 </Block>
 
@@ -66,7 +66,7 @@ const SpeedPosition = ({ second, distance, pace }) => {
                     size={50}
                     fontWeightBold
                 >
-                    {distance.toFixed(2)}
+                    {distance.toFixed(3)}
                 </MyText>
                 <MyText
                     color={'#9F9F9F'}
@@ -83,7 +83,7 @@ const SpeedPosition = ({ second, distance, pace }) => {
                         url={require('../../../assets/images/coin.png')}
                     />
                     <MyText color={'yellow'} size={35} fontWeightBold>
-                        + {distance.toFixed(2)}
+                        + {distance.toFixed(3)}
                     </MyText>
                 </Block>
             </Block>

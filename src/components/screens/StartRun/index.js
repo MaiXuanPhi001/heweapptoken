@@ -25,8 +25,6 @@ const StartRun = () => {
   const [position, setPosition] = useState(true)
   const [showMap, setShowMap] = useState(false)
 
-  const [resetPace, setResetPace] = useState(0)
-
   const watchID = React.useRef(false)
 
   const dispatch = useDispatch()
@@ -44,21 +42,14 @@ const StartRun = () => {
 
           if (arrayPosition.length >= 1) {
             const kilometers = distanceBetween(arrayPosition[arrayPosition.length - 1], position)
-            
+
             const velocity = calculateVelocity(kilometers, second + 1, secondEnd)
             setSecondEnd(second + 1)
 
-            if (velocity < 2) {
-              console.log('abc')
-              setResetPace(resetPace + 1)
-              return setPaceEnabled(false)
-            }
-
             setPaceEnabled(false)
-            // addPosition()
             setSecondEnd(second + 1) // lưu thời gian lúc người đó di chuyển được 10m
-            setPace(velocity)
-            if (velocity < 10) setDistance(distance + kilometers)// nếu vận tốc lớn hơn 10 return (km sẽ không được cộng)
+            setPace(velocity * 2)
+            if ((velocity * 2) < 10) setDistance(distance + kilometers)// nếu vận tốc lớn hơn 10 return (km sẽ không được cộng)
           } else {
             // if arrayPosition.length === 1 gửi vị trí bắt đầu lên server
             dispatch(sendPositionRunStart({ longitudeStart: position.longitude, latitudeStart: position.latitude }))
@@ -66,8 +57,7 @@ const StartRun = () => {
           // Thêm vị trí vào mảng
           addPosition()
         } else {
-          if (second - secondEnd >= 10 || resetPace >= 10) {
-            setResetPace(0)
+          if (second - secondEnd >= 20) {
             setPace(0)
           }
         }
@@ -86,7 +76,7 @@ const StartRun = () => {
       (error) => {
         console.log('error: ', error)
       },
-      { enableHighAccuracy: true, distanceFilter: 1, fastestInterval: 1000 }
+      { enableHighAccuracy: true, distanceFilter: 20, fastestInterval: 1000 }
     )
 
     const backAction = () => {
