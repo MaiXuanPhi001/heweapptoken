@@ -38,7 +38,9 @@ const StartRun = () => {
         setSecond(second + 1)
         if (paceEnabled) {
 
-          // if ((second - secondEnd < 6) && arrayPosition.length > 0) return setPaceEnabled(false)
+          if ((second - secondEnd < 6) && arrayPosition.length > 0) {
+            return setPaceEnabled(false)
+          }
 
           if (arrayPosition.length >= 1) {
             const kilometers = distanceBetween(arrayPosition[arrayPosition.length - 1], position)
@@ -70,6 +72,7 @@ const StartRun = () => {
     // Cập nhập lại khi vị trí bị thay đổi
     watchID.current = Geolocation.watchPosition(
       (position) => {
+        console.log('sasd')
         setPosition({ latitude: position.coords.latitude, longitude: position.coords.longitude })
         setPaceEnabled(true)
       },
@@ -87,6 +90,7 @@ const StartRun = () => {
     const backHandler = BackHandler.addEventListener('hardwareBackPress', backAction)
 
     return () => {
+      console.log('clear')
       backHandler.remove()
       Geolocation.clearWatch(watchID.current);
     }
