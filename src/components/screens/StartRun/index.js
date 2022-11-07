@@ -38,10 +38,8 @@ const StartRun = () => {
         setSecond(second + 1)
         if (paceEnabled) {
 
-          if ((second - secondEnd < 6) && arrayPosition.length > 0) {
-            return setPaceEnabled(false)
-          }
-
+          if ((second - secondEnd < 5) && arrayPosition.length > 0) return setPaceEnabled(false)
+          
           if (arrayPosition.length >= 1) {
             const kilometers = distanceBetween(arrayPosition[arrayPosition.length - 1], position)
 
@@ -49,9 +47,9 @@ const StartRun = () => {
             setSecondEnd(second + 1)
 
             setPaceEnabled(false)
-            setSecondEnd(second + 1) // lưu thời gian lúc người đó di chuyển được 10m
-            setPace(velocity * 2)
-            if ((velocity * 2) < 10) setDistance(distance + kilometers)// nếu vận tốc lớn hơn 10 return (km sẽ không được cộng)
+            setSecondEnd(second + 1) // lưu thời gian lúc người đó di chuyển được 20m
+            setPace(velocity * 1.5)
+            if (velocity * 1.5 < 10) setDistance(distance + kilometers)// nếu vận tốc lớn hơn 10 return (km sẽ không được cộng)
           } else {
             // if arrayPosition.length === 1 gửi vị trí bắt đầu lên server
             dispatch(sendPositionRunStart({ longitudeStart: position.longitude, latitudeStart: position.latitude }))
@@ -72,7 +70,6 @@ const StartRun = () => {
     // Cập nhập lại khi vị trí bị thay đổi
     watchID.current = Geolocation.watchPosition(
       (position) => {
-        console.log('sasd')
         setPosition({ latitude: position.coords.latitude, longitude: position.coords.longitude })
         setPaceEnabled(true)
       },
@@ -90,7 +87,6 @@ const StartRun = () => {
     const backHandler = BackHandler.addEventListener('hardwareBackPress', backAction)
 
     return () => {
-      console.log('clear')
       backHandler.remove()
       Geolocation.clearWatch(watchID.current);
     }
