@@ -25,6 +25,7 @@
     "moment": "^2.29.4",
     "react": "18.1.0",
     "react-native": "0.70.3",
+    "react-native-background-timer": "^2.4.1",
     "react-native-deep-linking": "^2.2.0",
     "react-native-geolocation-service": "^5.3.1",
     "react-native-gesture-handler": "^2.7.1",

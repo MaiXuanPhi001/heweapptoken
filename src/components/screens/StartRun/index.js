@@ -13,6 +13,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 import { contants } from '../../../utils/contants'
 import { alertGoBack } from '../../../method/alert'
 import { goBack } from '../../navigations/navigationRef'
+import _BackgroundTimer from 'react-native-background-timer'
 
 const StartRun = () => {
   const [pause, setPause] = useState(false)
@@ -33,13 +34,13 @@ const StartRun = () => {
 
   // Đếm giây
   useEffect(() => {
-    const timer = setTimeout(() => {
+    const timer = _BackgroundTimer.setTimeout(() => {
       if (!pause) { // nếu người dùng không bấm nút dừng thì đi tiếp
         setSecond(second + 1)
         if (paceEnabled) {
 
           if ((second - secondEnd < 5) && arrayPosition.length > 0) return setPaceEnabled(false)
-          
+
           if (arrayPosition.length >= 1) {
             const kilometers = distanceBetween(arrayPosition[arrayPosition.length - 1], position)
 
@@ -63,7 +64,8 @@ const StartRun = () => {
         }
       }
     }, 1000)
-    return () => clearTimeout(timer)
+
+    return () => _BackgroundTimer.clearTimeout(timer)
   })
 
   useEffect(() => {

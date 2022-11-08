@@ -306,6 +306,8 @@ PODS:
   - React-jsinspector (0.70.3)
   - React-logger (0.70.3):
     - glog
+  - react-native-background-timer (2.4.1):
+    - React-Core
   - react-native-geolocation-service (5.3.1):
     - React
   - react-native-maps (1.3.2):
@@ -485,6 +487,7 @@ DEPENDENCIES:
   - React-jsiexecutor (from `../node_modules/react-native/ReactCommon/jsiexecutor`)
   - React-jsinspector (from `../node_modules/react-native/ReactCommon/jsinspector`)
   - React-logger (from `../node_modules/react-native/ReactCommon/logger`)
+  - react-native-background-timer (from `../node_modules/react-native-background-timer`)
   - react-native-geolocation-service (from `../node_modules/react-native-geolocation-service`)
   - react-native-maps (from `../node_modules/react-native-maps`)
   - react-native-safe-area-context (from `../node_modules/react-native-safe-area-context`)
@@ -575,6 +578,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/jsinspector"
   React-logger:
     :path: "../node_modules/react-native/ReactCommon/logger"
+  react-native-background-timer:
+    :path: "../node_modules/react-native-background-timer"
   react-native-geolocation-service:
     :path: "../node_modules/react-native-geolocation-service"
   react-native-maps:
@@ -661,6 +666,7 @@ SPEC CHECKSUMS:
   React-jsiexecutor: 7e2e1772ef7b97168c880eeaf3749d8c145ffd6e
   React-jsinspector: 0553c9fe7218e1f127be070bd5a4d2fc19fb8190
   React-logger: cffcc09e8aba8a3014be8d18da7f922802e9f19e
+  react-native-background-timer: 17ea5e06803401a379ebf1f20505b793ac44d0fe
   react-native-geolocation-service: 608e1da71a1ac31b4de64d9ef2815f697978c55b
   react-native-maps: 085f614cf14d3637b2048bb9752da5b1c27c2886
   react-native-safe-area-context: 99b24a0c5acd0d5dcac2b1a7f18c49ea317be99a
