@@ -1,5 +1,6 @@
 import { Alert, BackHandler, Button, SafeAreaView, StyleSheet, Text, View } from 'react-native'
 import React, { useEffect, useState } from 'react'
+import { useKeepAwake } from '@sayem314/react-native-keep-awake';
 import Geolocation from 'react-native-geolocation-service'
 import * as turf from '@turf/turf'
 import Position from './Position'
@@ -34,7 +35,7 @@ const StartRun = () => {
 
   // Đếm giây
   useEffect(() => {
-    const timer = _BackgroundTimer.setTimeout(() => {
+   const timer = setTimeout(() => {
       if (!pause) { // nếu người dùng không bấm nút dừng thì đi tiếp
         setSecond(second + 1)
         if (paceEnabled) {
@@ -65,7 +66,7 @@ const StartRun = () => {
       }
     }, 1000)
 
-    return () => _BackgroundTimer.clearTimeout(timer)
+    return () => clearTimeout(timer)
   })
 
   useEffect(() => {
@@ -152,6 +153,8 @@ const StartRun = () => {
     })
     goBack()
   }
+
+  useKeepAwake();
 
   return (
     <Scroll
