@@ -25,6 +25,10 @@ const FormLogin = () => {
         if (email.trim() === '' || password.trim() === '') return alert('Email or password is empty')
         setLoading(true)
         const result = unwrapResult(await ditpatch(onLogin({ email, password })))
+        if (result.error) {
+            setLoading(false)
+            return alert('Unable to connect to server!, please try again')
+        }
         result.status && await AsyncStorage.setItem(contants.STORAGE_KEY, result.data.token)
         !result.status && alert('Incorrect account or password!')
         setLoading(false)

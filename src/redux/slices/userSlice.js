@@ -29,8 +29,10 @@ const userSlice = createSlice({
                 }
             })
             .addCase(loginRemember.fulfilled, (state, action) => {
-                state.userInfo = action.payload.data
-                state.isLogin = true
+                if (action.payload.status) {
+                    state.userInfo = action.payload.data
+                    state.isLogin = true
+                }
             })
             .addCase(onGetProfile.fulfilled, (state, action) => {
                 if (action.payload.status) {

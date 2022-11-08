@@ -26,6 +26,7 @@ const StartRun = () => {
   const [arrayPosition, setArrayPosition] = useState([])
   const [position, setPosition] = useState(true)
   const [showMap, setShowMap] = useState(false)
+  const [timeStart, setTimeStart] = useState(new Date().getTime() / 1000)
 
   const watchID = React.useRef(false)
 
@@ -37,19 +38,20 @@ const StartRun = () => {
   useEffect(() => {
    const timer = setTimeout(() => {
       if (!pause) { // nếu người dùng không bấm nút dừng thì đi tiếp
-        setSecond(second + 1)
+        const time = (new Date().getTime() / 1000) - timeStart.toFixed(0)
+        setSecond(time)
         if (paceEnabled) {
 
-          if ((second - secondEnd < 5) && arrayPosition.length > 0) return setPaceEnabled(false)
+          if ((time - secondEnd < 5) && arrayPosition.length > 0) return setPaceEnabled(false)
 
           if (arrayPosition.length >= 1) {
             const kilometers = distanceBetween(arrayPosition[arrayPosition.length - 1], position)
 
-            const velocity = calculateVelocity(kilometers, second + 1, secondEnd)
-            setSecondEnd(second + 1)
+            const velocity = calculateVelocity(kilometers, time + 1, secondEnd)
+            setSecondEnd(time)
 
             setPaceEnabled(false)
-            setSecondEnd(second + 1) // lưu thời gian lúc người đó di chuyển được 20m
+            setSecondEnd(time) // lưu thời gian lúc người đó di chuyển được 20m
             setPace(velocity * 1.5)
             if (velocity * 1.5 < 10) setDistance(distance + kilometers)// nếu vận tốc lớn hơn 10 return (km sẽ không được cộng)
           } else {
@@ -59,7 +61,7 @@ const StartRun = () => {
           // Thêm vị trí vào mảng
           addPosition()
         } else {
-          if (second - secondEnd >= 20) {
+          if (time - secondEnd >= 20) {
             setPace(0)
           }
         }
