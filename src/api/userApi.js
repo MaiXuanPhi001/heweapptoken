@@ -13,10 +13,11 @@ export const login = async (user) => {
 
 export const signUp = async (user) => {
     try {
-        const res = await axiosInstance.post('/api/user/signup', user)
+        const response = await fetchPOST('/api/user/signup', user)
+        const res = await response.json()
         return res
     } catch (error) {
-        return { status: false, message: 'You must send an email to authenticate' }
+        return { status: false, message: 'Cannot connect to server! please try again' }
     }
 }
 

@@ -71,10 +71,14 @@ const HomeDrawerCustom = (props) => {
                             label={contants.screen.SUPPORT}
                             onPress={() => { props.navigation.navigate(contants.screen.SUPPORT) }}
                         />
+                        <DrawerItem
+                            label={contants.screen.DELETE_ACCOUNT}
+                            onPress={() => { props.navigation.navigate(contants.screen.DELETE_ACCOUNT) }}
+                        />
                     </Drawer.Section>
                 </DrawerContentScrollView>
                 <Drawer.Section>
-                    <Drawer.Item label='Sign Out' onPress={ async () => {
+                    <Drawer.Item label='Sign Out' onPress={async () => {
                         await AsyncStorage.setItem(contants.STORAGE_KEY, '')
                         dispatch(userSlice.actions.signOut())
                     }}

@@ -14,6 +14,7 @@ import Support from '../screens/Support'
 import DistanceDetail from '../screens/DistanceDetail'
 import RewardHistory from '../screens/RewardHistory'
 import SignUp from '../screens/SignUp'
+import DeleteAccount from '../screens/DeleteAccount'
 
 const Drawer = createDrawerNavigator();
 
@@ -35,6 +36,7 @@ const HomeDrawer = () => {
             <Drawer.Screen name={contants.screen.SUPPORT} component={Support} />
             <Drawer.Screen name={contants.screen.REWARDHISTORY} component={RewardHistory} />
             <Drawer.Screen name={contants.screen.SIGNUP} component={SignUp} />
+            <Drawer.Screen name={contants.screen.DELETE_ACCOUNT} component={DeleteAccount} />
         </Drawer.Navigator>
     )
 }

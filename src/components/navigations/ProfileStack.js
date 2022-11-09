@@ -11,7 +11,6 @@ const ProfileStack = () => {
     return (
         <Stack.Navigator screenOptions={{ headerShown: false }}>
             <Stack.Screen name={contants.screen.PROFILE} component={Profile} />
-            <Stack.Screen name={contants.screen.DELETE_ACCOUNT} component={DeleteAccount} />
         </Stack.Navigator>
     )
 }

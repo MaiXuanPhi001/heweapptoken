@@ -1,8 +1,8 @@
 import { navigate } from "../components/navigations/navigationRef"
 import { contants } from "../utils/contants"
 
-const navigateProfile = () => {
-    navigate(contants.screen.PROFILE)
+const navigateHome = () => {
+    navigate(contants.screen.HOME)
 }
 
-export default navigateProfile
+export default navigateHome

@@ -3,7 +3,7 @@ import React from 'react'
 import Block from '../../common/Block'
 import MyText from '../../common/MyText'
 import Btn from './Btn'
-import navigateProfile from '../../../method/navigateProfile'
+import navigateHome from '../../../method/navigateHome'
 import { unwrapResult } from '@reduxjs/toolkit'
 import { useDispatch } from 'react-redux'
 import { removeAccount } from '../../../redux/slices/userSlice'
@@ -36,7 +36,7 @@ const DeleteAccount = () => {
           on this App including all rewards accomplised.
         </MyText>
         <Block row marginVertical={20}>
-          <Btn text={'Go Back'} onPress={navigateProfile} />
+          <Btn text={'Go Back'} onPress={navigateHome} />
           <Btn text={'Delete'} onPress={handleShowAlerRemoveAccount} />
         </Block>
       </Block>

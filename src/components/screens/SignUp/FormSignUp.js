@@ -37,11 +37,9 @@ const FormSignUp = () => {
         setLoading(true)
         const res = await signUp({ email, password, gender, codeEmail: code, referral })
         if (res.status) {
-            alert('Register success')
             clearForm()
-        } else {
-            alert(res.message)
-        }
+        } 
+        alert(res.message)
         setLoading(false)
     }
 
