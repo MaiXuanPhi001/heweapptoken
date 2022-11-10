@@ -40,45 +40,45 @@ const HomeDrawerCustom = (props) => {
                     </Block>
                     <Drawer.Section>
                         <DrawerItem
-                            label={contants.screen.HOME}
+                            label={'Home'}
                             onPress={() => { props.navigation.navigate(contants.screen.HOME) }}
                         />
                         <DrawerItem
-                            label={contants.screen.CHANGE_PASSWORD}
+                            label={'Change password'}
                             onPress={() => { props.navigation.navigate(contants.screen.CHANGE_PASSWORD) }}
                         />
                         <DrawerItem
-                            label={contants.screen.TRANSFER}
+                            label={'Transfer'}
                             onPress={() => { props.navigation.navigate(contants.screen.TRANSFER) }}
                         />
                         <DrawerItem
-                            label={contants.screen.HISTORY_TRANSFER}
+                            label={'History transfer'}
                             onPress={() => { props.navigation.navigate(contants.screen.HISTORY_TRANSFER) }}
                         />
                         <DrawerItem
-                            label={contants.screen.TOTAL_DISTANCE}
+                            label={'Total distance'}
                             onPress={() => { props.navigation.navigate(contants.screen.TOTAL_DISTANCE) }}
                         />
                         <DrawerItem
-                            label={contants.screen.KYC}
+                            label={'KYC'}
                             onPress={() => { props.navigation.navigate(contants.screen.KYC) }}
                         />
                         <DrawerItem
-                            label={contants.screen.AFFILIATE}
+                            label={'Affiliate'}
                             onPress={() => { props.navigation.navigate(contants.screen.AFFILIATE) }}
                         />
                         <DrawerItem
-                            label={contants.screen.SUPPORT}
+                            label={'Support'}
                             onPress={() => { props.navigation.navigate(contants.screen.SUPPORT) }}
                         />
                         <DrawerItem
-                            label={contants.screen.DELETE_ACCOUNT}
+                            label={'Delete account'}
                             onPress={() => { props.navigation.navigate(contants.screen.DELETE_ACCOUNT) }}
                         />
                     </Drawer.Section>
                 </DrawerContentScrollView>
                 <Drawer.Section>
-                    <Drawer.Item label='Sign Out' onPress={async () => {
+                    <Drawer.Item label='Sign out' onPress={async () => {
                         await AsyncStorage.setItem(contants.STORAGE_KEY, '')
                         dispatch(userSlice.actions.signOut())
                     }}

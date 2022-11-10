@@ -43,7 +43,13 @@ const SpeedPosition = ({ second, distance, pace }) => {
                         color={pace >= 10 ? 'red' : theme.colors.aqua}
                         unfilledColor={theme.colors.white}
                     />
-                    <Block absolute top={30} alignCenter>
+                    <Block
+                        width={'100%'}
+                        height={'100%'}
+                        absolute
+                        alignCenter
+                        justifyCenter
+                    >
                         <MyText
                             style={{ color: pace >= 10 ? 'red' : 'white' }}
                             size={17} color={theme.colors.white}

@@ -161,7 +161,6 @@ const StartRun = () => {
   return (
     <Scroll
       flexGrow={1}
-      isPaddingAdnroid
     >
       <SafeAreaView flex={1}>
         {!showMap &&
