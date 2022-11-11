@@ -1,4 +1,4 @@
-import { Alert, BackHandler, Button, SafeAreaView, StyleSheet, Text, View } from 'react-native'
+import { Alert, BackHandler, Button, Platform, SafeAreaView, StyleSheet, Text, View } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { useKeepAwake } from '@sayem314/react-native-keep-awake';
 import Geolocation from 'react-native-geolocation-service'
@@ -36,7 +36,7 @@ const StartRun = () => {
 
   // Đếm giây
   useEffect(() => {
-   const timer = setTimeout(() => {
+    const timer = setTimeout(() => {
       if (!pause) { // nếu người dùng không bấm nút dừng thì đi tiếp
         const time = (new Date().getTime() / 1000) - timeStart.toFixed(0)
         setSecond(time)
@@ -53,7 +53,10 @@ const StartRun = () => {
             setPaceEnabled(false)
             setSecondEnd(time) // lưu thời gian lúc người đó di chuyển được 20m
             setPace(velocity * 1.5)
-            if (velocity * 1.5 < 10) setDistance(distance + kilometers)// nếu vận tốc lớn hơn 10 return (km sẽ không được cộng)
+            if (velocity * 1.5 < 10) { // nếu vận tốc lớn hơn 10 return (km sẽ không được cộng)
+              if (Platform.OS == 'android') setDistance(distance + kilometers + 0.01)
+              else setDistance(distance + kilometers)
+            }
           } else {
             // if arrayPosition.length === 1 gửi vị trí bắt đầu lên server
             dispatch(sendPositionRunStart({ longitudeStart: position.longitude, latitudeStart: position.latitude }))
