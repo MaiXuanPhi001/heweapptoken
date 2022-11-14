@@ -1,5 +1,5 @@
-import { Linking, SafeAreaView, StyleSheet, Text, View } from 'react-native'
-import React from 'react'
+import { Linking, SafeAreaView, StyleSheet, Text, View, Animated } from 'react-native'
+import React, {useRef, useState} from 'react';
 import OpenDrawer from '../Reuse/OpenDrawer'
 import { useSelector } from 'react-redux'
 import { referralSelector } from '../../../redux/selectors/userSelector'
@@ -11,13 +11,42 @@ import ButtonUser from '../Reuse/ButtonUser'
 import { navigate } from '../../navigations/navigationRef'
 import { contants } from '../../../utils/contants'
 import Clipboard from '@react-native-clipboard/clipboard'
+import CustomToast from '../Reuse/CustomToast';
 
 const Affiliate = ({ navigation }) => {
   const referral = useSelector(referralSelector)
 
+  const [toastType, setToastType] = useState('success')
+  const [title, setTitle] = useState('Success')
+
+    const slideAnim = useRef(new Animated.Value(120)).current;
+
   const copyreferal = async () => {
+    showToast('success', 'Copy')
     Clipboard.setString(referral)
   }
+
+  const showToast = (type, message) => {
+    setToastType(type)
+    setTitle(message)
+    animateToast()
+  };
+
+    const animateToast = () => {
+      Animated.timing(slideAnim, {
+      toValue: 0,
+      duration: 400,
+      useNativeDriver: true,
+    }).start();
+ 
+    setTimeout(() => {
+      Animated.timing(slideAnim, {
+        toValue: 120,
+        duration: 200,
+        useNativeDriver: true,
+      }).start();
+    }, 2500);
+  };
 
   return (
     <Block
@@ -56,6 +85,15 @@ const Affiliate = ({ navigation }) => {
           />
         </Scroll>
       </SafeAreaView>
+      <Animated.View
+        style={{transform: [{translateY: slideAnim}], marginBottom: 25}}
+      >
+        <CustomToast
+          type={toastType}
+          title={title}
+          subtitle={`Copy success!`}
+        />
+        </Animated.View>
     </Block>
   )
 }
@@ -63,3 +101,86 @@ const Affiliate = ({ navigation }) => {
 export default Affiliate
 
 const styles = StyleSheet.create({})
+
+// import {View, StyleSheet, Button, Animated} from 'react-native';
+// import React, {useRef, useState} from 'react';
+// import CustomToast from '../Reuse/CustomToast';
+ 
+// const Affiliate = () => {
+//   const [toastType, setToastType] = useState('success');
+//   const [title, setTitle] = useState('Success');
+ 
+//   const slideAnim = useRef(new Animated.Value(120)).current;
+ 
+//   const animateToast = () => {
+//     Animated.timing(slideAnim, {
+//       toValue: 0,
+//       duration: 400,
+//       useNativeDriver: true,
+//     }).start();
+ 
+//     setTimeout(() => {
+//       Animated.timing(slideAnim, {
+//         toValue: 120,
+//         duration: 200,
+//         useNativeDriver: true,
+//       }).start();
+//     }, 2500);
+//   };
+ 
+//   const showToast = (type, message) => {
+//     setToastType(type);
+//     setTitle(message);
+//     animateToast();
+//   };
+ 
+//   return (
+//     <View style={styles.container}>
+//       <View style={styles.btnContainer}>
+//         <Button
+//           onPress={() => showToast('success', 'Success')}
+//           title="Show Success Toast"
+//           color="#03AE76"
+//         />
+//         <View style={styles.divider} />
+//         <Button
+//           onPress={() => showToast('warn', 'Waring')}
+//           title="Show Warning Toast"
+//           color="#FFAB00"
+//         />
+//       </View>
+ 
+//       <Animated.View
+//         style={{transform: [{translateY: slideAnim}], marginBottom: 25}}>
+//         <CustomToast
+//           type={toastType}
+//           title={title}
+//           subtitle={`This is ${title} Toast!!`}
+//         />
+//       </Animated.View>
+//     </View>
+//   );
+// };
+ 
+// export default Affiliate;
+ 
+// const styles = StyleSheet.create({
+//   container: {
+//     flex: 1,
+//     backgroundColor: '#E0EAE9',
+//   },
+ 
+//   btnContainer: {
+//     flex: 1,
+//     alignItems: 'center',
+//     justifyContent: 'center',
+//   },
+ 
+//   divider: {
+//     width: 50,
+//     height: 1,
+//     backgroundColor: '#737373',
+//     marginVertical: 10,
+//   },
+// });
+
