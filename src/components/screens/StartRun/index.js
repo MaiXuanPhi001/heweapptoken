@@ -15,18 +15,25 @@ import { contants } from '../../../utils/contants'
 import { alertGoBack } from '../../../method/alert'
 import { goBack } from '../../navigations/navigationRef'
 import _BackgroundTimer from 'react-native-background-timer'
+import { accelerometer, gyroscope, setUpdateIntervalForType, SensorTypes } from "react-native-sensors"
 
 const StartRun = () => {
   const [pause, setPause] = useState(false)
   const [second, setSecond] = useState(0)
   const [secondEnd, setSecondEnd] = useState(0)
   const [distance, setDistance] = useState(0)
+  const [coin, setCoin] = useState(0)
   const [pace, setPace] = useState(0)
   const [paceEnabled, setPaceEnabled] = useState(false)
   const [arrayPosition, setArrayPosition] = useState([])
   const [position, setPosition] = useState(true)
   const [showMap, setShowMap] = useState(false)
   const [timeStart, setTimeStart] = useState(new Date().getTime() / 1000)
+
+  const [axis, setAxis] = useState(0)
+  const [vector, setVector] = useState(0)
+
+  setUpdateIntervalForType(SensorTypes.accelerometer, 2000); // defaults to 100ms
 
   const watchID = React.useRef(false)
 
@@ -54,8 +61,13 @@ const StartRun = () => {
             setSecondEnd(time) // lưu thời gian lúc người đó di chuyển được 20m
             setPace(velocity * 1.5)
             if (velocity * 1.5 < 10) { // nếu vận tốc lớn hơn 10 return (km sẽ không được cộng)
-              if (Platform.OS == 'android') setDistance(distance + kilometers + 0.01)
-              else setDistance(distance + kilometers)
+              if (Platform.OS == 'android') {
+                setDistance(distance + kilometers + 0.01)
+                setCoin(coin + kilometers + 0.01)
+              }else {
+                setDistance(distance + kilometers)
+                setCoin(coin + kilometers)
+              }
             }
           } else {
             // if arrayPosition.length === 1 gửi vị trí bắt đầu lên server
@@ -87,6 +99,10 @@ const StartRun = () => {
       { enableHighAccuracy: true, distanceFilter: 20, fastestInterval: 1000 }
     )
 
+    const subscription = accelerometer.subscribe(({ x, y, z, timestamp }) => {
+      setAxis(x)
+    })
+
     const backAction = () => {
       alertGoBack(walkEnd)
       return true
@@ -96,7 +112,8 @@ const StartRun = () => {
 
     return () => {
       backHandler.remove()
-      Geolocation.clearWatch(watchID.current);
+      Geolocation.clearWatch(watchID.current)
+      subscription.unsubscribe()
     }
   }, [])
 
@@ -159,6 +176,18 @@ const StartRun = () => {
     goBack()
   }
 
+  if (vector >= 0) {
+    if (axis < 0) {
+      setCoin(coin + 0.001)
+      setVector(axis)
+    }
+  }else {
+    if (axis > 0) {
+      setCoin(coin + 0.001)
+      setVector(axis)
+    }
+  }
+
   useKeepAwake();
 
   return (
@@ -170,6 +199,7 @@ const StartRun = () => {
           <Position
             second={second}
             distance={distance}
+            coin={coin}
             pace={pace}
             pause={pause}
             setPause={setPause}

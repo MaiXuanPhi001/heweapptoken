@@ -290,6 +290,8 @@ dependencies {
     } else {
         implementation jscFlavor
     }
+
+    implementation project(':react-native-sensors')
 }
 
 if (isNewArchitectureEnabled()) {
