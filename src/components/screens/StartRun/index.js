@@ -178,14 +178,14 @@ const StartRun = () => {
           />
         }
 
-        {(arrayPosition.length > 0 && showMap) &&
+        {/* {(arrayPosition.length > 0 && showMap) &&
           <Map
             arrPosition={arrayPosition}
             distance={distance}
             pace={pace}
             setShowMap={setShowMap}
           />
-        }
+        } */}
       </SafeAreaView>
     </Scroll>
   )

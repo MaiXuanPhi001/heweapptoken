@@ -19,14 +19,21 @@ const Pause = ({ pause, setPause, walkEnd, setShowMap }) => {
         <Block
             style={styles.container}
         >
-            <TouchableOpacity onPress={() => setShowMap(true)}>
+            {/* <TouchableOpacity onPress={() => setShowMap(true)}>
                 <Img
                     width={40}
                     height={40}
                     radius={50}
                     url={require('../../../assets/images/google-maps.png')}
                 />
-            </TouchableOpacity>
+            </TouchableOpacity> */}
+            
+            <Img
+                width={40}
+                height={40}
+                radius={50}
+                url={require('../../../assets/images/icon.png')}
+            />
             <Block row alignCenter>
                 {!pause ?
                     <MyButton onPress={() => setPause(true)}>

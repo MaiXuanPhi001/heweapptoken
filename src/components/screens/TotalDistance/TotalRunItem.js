@@ -15,13 +15,13 @@ const TotalRunItem = ({ item }) => {
 
     const formatSecond = second => moment.utc(moment.duration(second, 's').asMilliseconds()).format('H:mm:ss')
 
-    const handleDistanceDetail = () => {
-        dispatch(getDetailRun(item.id))
-        navigate(contants.screen.DISTANCE_DETAIL)
-    }
+    // const handleDistanceDetail = () => {
+    //     dispatch(getDetailRun(item.id))
+    //     navigate(contants.screen.DISTANCE_DETAIL)
+    // }
 
     return (
-        <MyButton marginVertical={10} onPress={handleDistanceDetail}>
+        <Block marginVertical={10}>
             <MyText marginVertical={10}>{item.created_at}</MyText>
             <Block row>
                 <Img
@@ -33,7 +33,7 @@ const TotalRunItem = ({ item }) => {
                     <MyText>{formatSecond(item.created_time_end - item.created_time_start)}</MyText>
                 </Block>
             </Block>
-        </MyButton>
+        </Block>
     )
 }
 

@@ -38,9 +38,9 @@ const Affiliate = ({ navigation }) => {
           >
             <Item
               caption={'Referral URL'}
-              referral={'https://hewe.club/signup/' + referral}
+              referral={'https://hewetoken.com/signup/' + referral}
               img={require('../../../assets/images/web.png')}
-              onPress={() => Linking.openURL('https://hewe.club/signup/' + referral)}
+              onPress={() => Linking.openURL('https://hewetoken.com/signup/' + referral)}
             />
 
             <Item

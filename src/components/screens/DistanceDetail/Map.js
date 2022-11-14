@@ -1,6 +1,6 @@
 import { BackHandler, SafeAreaView, StyleSheet, Text, View } from 'react-native'
 import React, { useEffect } from 'react'
-import MapView, { Marker, Polyline } from 'react-native-maps'
+// import MapView, { Marker, Polyline } from 'react-native-maps'
 import Pin from '../StartRun/Pin'
 import { theme } from '../../../theme'
 import Block from '../../common/Block'
@@ -28,7 +28,7 @@ const Map = ({ data }) => {
 
     return (
         <SafeAreaView>
-            <Block
+            {/* <Block
                 paddingHorizontal={20}
                 backgroundColor={'white'}
                 isPaddingAdnroid
@@ -104,7 +104,7 @@ const Map = ({ data }) => {
                         strokeWidth={6}
                     />
                 </MapView>
-            }
+            } */}
 
 
         </SafeAreaView>
