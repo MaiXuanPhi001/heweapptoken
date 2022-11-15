@@ -165,7 +165,7 @@ const StartRun = () => {
     await sendPositionEnd({
       longitudeEnd: lastPosition.longitude,
       latitudeEnd: lastPosition.latitude,
-      ran: distance.toFixed(2)
+      ran: distance.toFixed(3)
     })
     goBack()
   }
