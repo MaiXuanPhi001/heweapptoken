@@ -10,6 +10,6 @@ export const genderSelector = state => state.user.userInfo.gender
 
 export const referralSignUpSelector = state => state.user.referral
 
-export const ranSelector = state => state.user.userInfo.ran.toFixed(2)
+export const ranSelector = state => state.user.userInfo.ran.toFixed(3)
 
-export const balanceSelector = state => state.user.userInfo.balance.toFixed(2)
+export const balanceSelector = state => state.user.userInfo.balance.toFixed(3)

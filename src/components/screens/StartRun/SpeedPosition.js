@@ -32,7 +32,7 @@ const SpeedPosition = ({ second, distance, pace }) => {
                     </MyText>
                     <Img url={require('../../../assets/images/oclock.png')} />
                 </Block>
-
+{/* 
                 <Block alignCenter marginRight={25}>
                     <Progress.Circle
                         style={{ transform: [{ rotate: '-70deg' }] }}
@@ -58,7 +58,7 @@ const SpeedPosition = ({ second, distance, pace }) => {
                         </MyText>
                         <MyText size={15} color={theme.colors.white}>Km/h</MyText>
                     </Block>
-                </Block>
+                </Block> */}
 
                 <Block alignCenter>
                     <MyText color={theme.colors.white} size={20}>0</MyText>
