@@ -6,7 +6,7 @@ import HeaderPosition from './HeaderPosition'
 import SpeedPosition from './SpeedPosition'
 import Pause from './Pause'
 
-const Position = ({ pause, setPause, second, distance, pace, walkEnd, setShowMap, coin }) => {
+const Position = ({ pause, setPause, second, distance, pace, walkEnd, setShowMap }) => {
     return (
         <ImageBackground
             style={styles.imgBg}
@@ -17,7 +17,6 @@ const Position = ({ pause, setPause, second, distance, pace, walkEnd, setShowMap
                 second={second}
                 distance={distance}
                 pace={pace}
-                coin={coin}
             />
             <Pause
                 pause={pause}

@@ -22,7 +22,6 @@ const StartRun = () => {
   const [second, setSecond] = useState(0)
   const [secondEnd, setSecondEnd] = useState(0)
   const [distance, setDistance] = useState(0)
-  const [coin, setCoin] = useState(0)
   const [pace, setPace] = useState(0)
   const [paceEnabled, setPaceEnabled] = useState(false)
   const [arrayPosition, setArrayPosition] = useState([])
@@ -61,13 +60,8 @@ const StartRun = () => {
             setSecondEnd(time) // lưu thời gian lúc người đó di chuyển được 20m
             setPace(velocity * 1.5)
             if (velocity * 1.5 < 10) { // nếu vận tốc lớn hơn 10 return (km sẽ không được cộng)
-              if (Platform.OS == 'android') {
-                setDistance(distance + kilometers + 0.01)
-                setCoin(coin + kilometers + 0.01)
-              }else {
-                setDistance(distance + kilometers)
-                setCoin(coin + kilometers)
-              }
+              if (Platform.OS == 'android') setDistance(distance + kilometers + 0.01)
+              else setDistance(distance + kilometers)
             }
           } else {
             // if arrayPosition.length === 1 gửi vị trí bắt đầu lên server
@@ -81,7 +75,7 @@ const StartRun = () => {
           }
         }
       }
-    }, 1000)
+    }, 900)
 
     return () => clearTimeout(timer)
   })
@@ -176,17 +170,20 @@ const StartRun = () => {
     goBack()
   }
 
-  if (vector >= 0) {
-    if (axis < 0) {
-      setCoin(coin + 0.001)
-      setVector(axis)
-    }
-  }else {
-    if (axis > 0) {
-      setCoin(coin + 0.001)
-      setVector(axis)
+  if (!pause) {
+    if (vector >= 0) {
+      if (axis < 0) {
+        setDistance(distance + 0.001)
+        setVector(axis)
+      }
+    }else {
+      if (axis > 0) {
+        setDistance(distance + 0.001)
+        setVector(axis)
+      }
     }
   }
+
 
   useKeepAwake();
 
@@ -199,7 +196,6 @@ const StartRun = () => {
           <Position
             second={second}
             distance={distance}
-            coin={coin}
             pace={pace}
             pause={pause}
             setPause={setPause}

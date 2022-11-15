@@ -7,7 +7,7 @@ import { theme } from '../../../theme';
 import Img from '../../common/Img';
 import moment from 'moment';
 
-const SpeedPosition = ({ second, distance, pace, coin }) => {
+const SpeedPosition = ({ second, distance, pace }) => {
 
     const formatSecond = second => moment.utc(moment.duration(second, 's').asMilliseconds()).format('H:mm:ss')
 
@@ -89,7 +89,7 @@ const SpeedPosition = ({ second, distance, pace, coin }) => {
                         url={require('../../../assets/images/coin.png')}
                     />
                     <MyText color={'yellow'} size={35} fontWeightBold>
-                        + {coin.toFixed(3)}
+                        + {distance.toFixed(3)}
                     </MyText>
                 </Block>
             </Block>
