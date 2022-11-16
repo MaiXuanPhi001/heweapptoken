@@ -13,7 +13,6 @@ import { userInfoSelector } from '../../../redux/selectors/userSelector'
 import { checkKYC } from '../../../api/kycApi'
 import RadioBtn from '../Reuse/RadioBtn'
 import ModalChooseImg from './ModalChooseImg'
-import { goBack } from '../../navigations/navigationRef'
 import { contants } from '../../../utils/contants'
 
 const initValue = {

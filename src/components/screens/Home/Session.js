@@ -12,8 +12,9 @@ import MyText from '../../common/MyText'
 import Geolocation from 'react-native-geolocation-service'
 import { navigate } from '../../navigations/navigationRef'
 import { contants } from '../../../utils/contants'
-import { unwrapResult } from '@reduxjs/toolkit'
 import LottieAnimation from '../Reuse/LottieAnimation'
+import { checkKYC } from '../../../api/kycApi'
+import { alertConfirm } from '../../../method/alert'
 
 const Session = ({ navigation }) => {
   const userInfo = useSelector(userInfoSelector)
@@ -60,11 +61,29 @@ const Session = ({ navigation }) => {
   })
 
   const handleRunStart = async () => {
-    if (permision === 'granted') {
-      navigate(contants.screen.STARTRUN)
+    const res = await checkKYC()
+    if (!res.error) {
+      if (res.status) {
+        if (permision === 'granted') {
+          navigate(contants.screen.STARTRUN)
+        } else {
+          alert('You have denied location access!')
+        }
+      } else {
+        handleNotKYC()
+      }
     } else {
-      alert('You have denied location access!')
+      alert(res.message)
     }
+  }
+
+  const handleNotKYC = () => {
+    alertConfirm(
+      'You have not KYC',
+      'Do you want to KYC?',
+      'ok',
+      () => navigate(contants.screen.KYC)
+    )
   }
 
   return (

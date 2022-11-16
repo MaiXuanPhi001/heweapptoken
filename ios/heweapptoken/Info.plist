@@ -53,7 +53,7 @@
 		</dict>
 	</dict>
 	<key>NSCameraUsageDescription</key>
-	<string>heweapptoken requires camera access to take photo</string>
+	<string>Our application needs users to verify their identity. We need users to provide an identity card and a portrait. This will prevent a single user from signing up for multiple accounts and also prevent robots from using our app.</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
 	<string>Our app is pedestrian app, we need location access to measure user walking distance</string>
 	<key>NSLocationAlwaysUsageDescription</key>
@@ -61,7 +61,7 @@
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Our app is pedestrian app, we need location access to measure user walking distance</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>heweapptoken requires photo library access</string>
+	<string>Our application needs users to verify their identity. We need users to provide an identity card and a portrait. This will prevent a single user from signing up for multiple accounts and also prevent robots from using our app.</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIRequiredDeviceCapabilities</key>
