@@ -5,7 +5,6 @@ import { useSelector } from 'react-redux'
 import { referralSelector } from '../../../redux/selectors/userSelector'
 import Block from '../../common/Block'
 import Scroll from '../../common/Scroll'
-import { theme } from '../../../theme'
 import ButtonUser from '../Reuse/ButtonUser'
 import { navigate } from '../../navigations/navigationRef'
 import { contants } from '../../../utils/contants'
@@ -13,6 +12,7 @@ import Clipboard from '@react-native-clipboard/clipboard'
 import CustomToast from '../Reuse/CustomToast';
 import Url from './Url';
 import ID from './ID';
+import { styled } from '../../../theme/styled';
 
 const Affiliate = ({ navigation }) => {
   const referral = useSelector(referralSelector)
@@ -52,34 +52,39 @@ const Affiliate = ({ navigation }) => {
   return (
     <Block
       flex={1}
-      backgroundColor={theme.colors.grayBorder}
+      backgroundColor={'white'}
       isPaddingAdnroid
       paddingHorizontal={10}
     >
       <SafeAreaView style={{ flex: 1 }}>
         <Scroll flexGrow={1}>
           <OpenDrawer navigation={navigation} />
-          <Block
-            radius={15}
-            backgroundColor={'white'}
-            paddingHorizontal={20}
-            paddingVertical={15}
-            marginTop={15}
-          >
-            <Url
-              referral={referral}
-              copyreferal={copyreferal}
-            />
+          <Block width={'100%'} alignCenter>
+            <Block
+              style={styled.shadow}
+              width={'97%'}
+              radius={15}
+              backgroundColor={'white'}
+              paddingHorizontal={20}
+              paddingVertical={15}
+              marginTop={15}
+            >
+              <Url
+                referral={referral}
+                copyreferal={copyreferal}
+              />
 
-            <ID
-              referral={referral}
-              copyreferal={copyreferal}
+              <ID
+                referral={referral}
+                copyreferal={copyreferal}
+              />
+            </Block>
+            <ButtonUser
+              width={'97%'}
+              onPress={() => navigate(contants.screen.REWARDHISTORY)}
+              text={'Reward history'}
             />
           </Block>
-          <ButtonUser
-            onPress={() => navigate(contants.screen.REWARDHISTORY)}
-            text={'Reward history'}
-          />
         </Scroll>
       </SafeAreaView>
       <Animated.View
