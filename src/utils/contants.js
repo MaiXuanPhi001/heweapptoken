@@ -27,5 +27,6 @@ export const contants = {
         SUPPORT: 'Support',
         REWARDHISTORY: 'RewardHistory',
         DELETE_ACCOUNT: 'DeleteAccount',
+        WITHDRAW: 'Withdraw',
     }
 }

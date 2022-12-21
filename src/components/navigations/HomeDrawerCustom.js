@@ -1,4 +1,4 @@
-import { SafeAreaView, StyleSheet, Text, View } from 'react-native'
+import { SafeAreaView, StyleSheet } from 'react-native'
 import React from 'react'
 import Block from '../common/Block'
 import { DrawerContentScrollView, DrawerItem } from '@react-navigation/drawer'
@@ -62,6 +62,10 @@ const HomeDrawerCustom = (props) => {
                         <DrawerItem
                             label={'KYC'}
                             onPress={() => { props.navigation.navigate(contants.screen.KYC) }}
+                        />
+                        <DrawerItem
+                            label={'Withdraw'}
+                            onPress={() => { props.navigation.navigate(contants.screen.WITHDRAW) }}
                         />
                         <DrawerItem
                             label={'Affiliate'}

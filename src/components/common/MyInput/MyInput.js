@@ -18,6 +18,7 @@ const MyInput = ({
     onPress,
     keyboardType = 'default',
     flex,
+    editable = true,
     flexShrink,
     flexGrow,
     row,
@@ -163,6 +164,7 @@ const MyInput = ({
                 value={value}
                 onChangeText={setValue}
                 placeholder={hint}
+                editable={editable}
                 style={blockStyles} {...rest}
                 secureTextEntry={security ? true : false}
                 keyboardType={keyboardType}
