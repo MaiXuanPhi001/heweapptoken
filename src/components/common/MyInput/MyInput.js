@@ -17,6 +17,7 @@ const MyInput = ({
     iconTwo,
     onPress,
     keyboardType = 'default',
+    autoCapitalize='none',
     flex,
     editable = true,
     flexShrink,
@@ -168,6 +169,8 @@ const MyInput = ({
                 style={blockStyles} {...rest}
                 secureTextEntry={security ? true : false}
                 keyboardType={keyboardType}
+                autoCapitalize={autoCapitalize}
+                backgroundColor={backgroundColor}
             />
             {iconTwo &&
                 <TouchableOpacity
