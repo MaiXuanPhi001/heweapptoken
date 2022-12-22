@@ -28,5 +28,6 @@ export const contants = {
         REWARDHISTORY: 'RewardHistory',
         DELETE_ACCOUNT: 'DeleteAccount',
         WITHDRAW: 'Withdraw',
+        HISTORY_WITHDRAW: 'HistoryWithdraw',
     }
 }

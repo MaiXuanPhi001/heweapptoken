@@ -12,6 +12,65 @@ import { theme } from '../../theme'
 import userSlice from '../../redux/slices/userSlice'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
+const data =
+    [
+        {
+            id: 0,
+            lable: 'Home',
+            screen: contants.screen.HOME,
+        },
+        {
+            id: 1,
+            lable: 'Change password',
+            screen: contants.screen.CHANGE_PASSWORD,
+        },
+        {
+            id: 2,
+            lable: 'Transfer',
+            screen: contants.screen.TRANSFER,
+        },
+        {
+            id: 3,
+            lable: 'History transfer',
+            screen: contants.screen.HISTORY_TRANSFER,
+        },
+        {
+            id: 4,
+            lable: 'Total distance',
+            screen: contants.screen.TOTAL_DISTANCE,
+        },
+        {
+            id: 5,
+            lable: 'KYC',
+            screen: contants.screen.KYC,
+        },
+        {
+            id: 6,
+            lable: 'Withdraw',
+            screen: contants.screen.WITHDRAW,
+        },
+        {
+            id: 7,
+            lable: 'History withraw',
+            screen: contants.screen.HISTORY_WITHDRAW,
+        },
+        {
+            id: 8,
+            lable: 'Affiliate',
+            screen: contants.screen.AFFILIATE,
+        },
+        {
+            id: 9,
+            lable: 'Support',
+            screen: contants.screen.SUPPORT,
+        },
+        {
+            id: 10,
+            lable: 'Delete account',
+            screen: contants.screen.DELETE_ACCOUNT,
+        },
+    ]
+
 const HomeDrawerCustom = (props) => {
     const user = useSelector(userInfoSelector)
     const dispatch = useDispatch()
@@ -39,46 +98,13 @@ const HomeDrawerCustom = (props) => {
                         </MyText>
                     </Block>
                     <Drawer.Section>
-                        <DrawerItem
-                            label={'Home'}
-                            onPress={() => { props.navigation.navigate(contants.screen.HOME) }}
-                        />
-                        <DrawerItem
-                            label={'Change password'}
-                            onPress={() => { props.navigation.navigate(contants.screen.CHANGE_PASSWORD) }}
-                        />
-                        <DrawerItem
-                            label={'Transfer'}
-                            onPress={() => { props.navigation.navigate(contants.screen.TRANSFER) }}
-                        />
-                        <DrawerItem
-                            label={'History transfer'}
-                            onPress={() => { props.navigation.navigate(contants.screen.HISTORY_TRANSFER) }}
-                        />
-                        <DrawerItem
-                            label={'Total distance'}
-                            onPress={() => { props.navigation.navigate(contants.screen.TOTAL_DISTANCE) }}
-                        />
-                        <DrawerItem
-                            label={'KYC'}
-                            onPress={() => { props.navigation.navigate(contants.screen.KYC) }}
-                        />
-                        <DrawerItem
-                            label={'Withdraw'}
-                            onPress={() => { props.navigation.navigate(contants.screen.WITHDRAW) }}
-                        />
-                        <DrawerItem
-                            label={'Affiliate'}
-                            onPress={() => { props.navigation.navigate(contants.screen.AFFILIATE) }}
-                        />
-                        <DrawerItem
-                            label={'Support'}
-                            onPress={() => { props.navigation.navigate(contants.screen.SUPPORT) }}
-                        />
-                        <DrawerItem
-                            label={'Delete account'}
-                            onPress={() => { props.navigation.navigate(contants.screen.DELETE_ACCOUNT) }}
-                        />
+                        {data.map(item =>
+                            <DrawerItem
+                                key={item.id}
+                                label={item.lable}
+                                onPress={() => { props.navigation.navigate(item.screen) }}
+                            />
+                        )}
                     </Drawer.Section>
                 </DrawerContentScrollView>
                 <Drawer.Section>

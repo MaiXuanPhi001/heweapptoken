@@ -11,11 +11,80 @@ import TotalDistance from '../screens/TotalDistance'
 import KYC from '../screens/KYC'
 import Affiliate from '../screens/Affiliate'
 import Support from '../screens/Support'
-import DistanceDetail from '../screens/DistanceDetail'
 import RewardHistory from '../screens/RewardHistory'
 import SignUp from '../screens/SignUp'
 import DeleteAccount from '../screens/DeleteAccount'
 import Withdraw from '../screens/Withdraw'
+import HistoryWithdraw from '../screens/HistoryWithdraw'
+
+const data =
+    [
+        {
+            id: 0,
+            name: contants.screen.HOMESTACK,
+            component: HomeStack,
+        },
+        {
+            id: 1,
+            name: contants.screen.CHANGE_PASSWORD,
+            component: ChangePassword,
+        },
+        {
+            id: 2,
+            name: contants.screen.TRANSFER,
+            component: Transfer,
+        },
+        {
+            id: 3,
+            name: contants.screen.HISTORY_TRANSFER,
+            component: HistoryTransfer,
+        },
+        {
+            id: 4,
+            name: contants.screen.TOTAL_DISTANCE,
+            component: TotalDistance,
+        },
+        {
+            id: 5,
+            name: contants.screen.KYC,
+            component: KYC,
+        },
+        {
+            id: 6,
+            name: contants.screen.WITHDRAW,
+            component: Withdraw,
+        },
+        {
+            id: 7,
+            name: contants.screen.HISTORY_WITHDRAW,
+            component: HistoryWithdraw,
+        },
+        {
+            id: 8,
+            name: contants.screen.AFFILIATE,
+            component: Affiliate,
+        },
+        {
+            id: 9,
+            name: contants.screen.SUPPORT,
+            component: Support,
+        },
+        {
+            id: 10,
+            name: contants.screen.REWARDHISTORY,
+            component: RewardHistory,
+        },
+        {
+            id: 11,
+            name: contants.screen.SIGNUP,
+            component: SignUp,
+        },
+        {
+            id: 12,
+            name: contants.screen.DELETE_ACCOUNT,
+            component: DeleteAccount,
+        },
+    ]
 
 const Drawer = createDrawerNavigator();
 
@@ -26,19 +95,15 @@ const HomeDrawer = () => {
             screenOptions={{ headerShown: false }}
             drawerContent={props => <HomeDrawerCustom {...props} />}
         >
-            <Drawer.Screen name={contants.screen.HOMESTACK} component={HomeStack} />
-            <Drawer.Screen name={contants.screen.CHANGE_PASSWORD} component={ChangePassword} />
-            <Drawer.Screen name={contants.screen.TRANSFER} component={Transfer} />
-            <Drawer.Screen name={contants.screen.HISTORY_TRANSFER} component={HistoryTransfer} />
-            <Drawer.Screen name={contants.screen.TOTAL_DISTANCE} component={TotalDistance} />
-            <Drawer.Screen name={contants.screen.DISTANCE_DETAIL} component={DistanceDetail} />
-            <Drawer.Screen name={contants.screen.KYC} component={KYC} />
-            <Drawer.Screen name={contants.screen.AFFILIATE} component={Affiliate} />
-            <Drawer.Screen name={contants.screen.SUPPORT} component={Support} />
-            <Drawer.Screen name={contants.screen.REWARDHISTORY} component={RewardHistory} />
-            <Drawer.Screen name={contants.screen.SIGNUP} component={SignUp} />
-            <Drawer.Screen name={contants.screen.DELETE_ACCOUNT} component={DeleteAccount} />
-            <Drawer.Screen name={contants.screen.WITHDRAW} component={Withdraw} />
+            {
+                data.map(item =>
+                    <Drawer.Screen
+                        key={item.id}
+                        name={item.name}
+                        component={item.component}
+                    />
+                )
+            }
         </Drawer.Navigator>
     )
 }

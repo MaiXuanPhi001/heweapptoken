@@ -111,8 +111,8 @@ const Withdraw = ({ navigation }) => {
                     keyboardType={'numeric'}
                 />
                 {(checkForm && amount.trim() === '') && <TextFormError text={'Amount is empty'} />}
-                {Number(amount) > balance && <TextFormError text={'Insufficient balance'} />}
-                {Number(amount) < 50 && <TextFormError text={'Minimum amount must be 50 token'} />}
+                {(checkForm && Number(amount) > balance) && <TextFormError text={'Insufficient balance'} />}
+                {(checkForm && Number(amount) < 50) && <TextFormError text={'Minimum amount must be 50 token'} />}
 
                 <MyInput
                     value={receive}
