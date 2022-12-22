@@ -8,6 +8,7 @@ import { handleMargin, handlePadding, handleRound, handleSquare } from '../share
 import styles from '../Block/styles';
 
 const Scroll = ({
+    horizontal = false,
     flex,
     flexShrink,
     flexGrow,
@@ -148,7 +149,7 @@ const Scroll = ({
     ];
 
     return (
-        <ScrollView contentContainerStyle={blockStyles} {...rest}>
+        <ScrollView horizontal={horizontal} contentContainerStyle={blockStyles} {...rest}>
             {children}
         </ScrollView>
     );

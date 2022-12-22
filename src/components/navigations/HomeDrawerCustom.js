@@ -51,7 +51,7 @@ const data =
         },
         {
             id: 7,
-            lable: 'History withraw',
+            lable: 'History withdraw',
             screen: contants.screen.HISTORY_WITHDRAW,
         },
         {

@@ -1,12 +1,12 @@
 import axiosInstance from "./axios"
 import { fetchPOST } from "./fetchConfig"
 
-export const getHistoryTransfer = async () => {
+export const getHistoryTransfer = async (data) => {
     try {
-        const res = await axiosInstance.post('/api/crypto/getHistoryTransfer', { limit: 10, page: 1 })
-        return res
+        const res = await axiosInstance.post('/api/crypto/getHistoryTransfer', data)
+        return { ...res, error: false, page: data.page }
     } catch (error) {
-        return { status: false }
+        return { error: true, status: false }
     }
 }
 
@@ -33,6 +33,15 @@ export const withdraw = async (data) => {
         const response = await fetchPOST('/api/crypto/widthdraw', data)
         const res = await response.json()
         return { ...res, error: false }
+    } catch (error) {
+        return { error: true, status: false }
+    }
+}
+
+export const getHistoryWidthdraw = async (data) => {
+    try {
+        const res = await axiosInstance.post('/api/crypto/getHistoryWidthdraw', data)
+        return { ...res, error: false, page: data.page }
     } catch (error) {
         return { error: true, status: false }
     }

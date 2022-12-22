@@ -3,50 +3,60 @@ import React, { useEffect, useState } from 'react'
 import ScroollAreaView from '../Reuse/ScroollAreaView'
 import OpenDrawer from '../Reuse/OpenDrawer'
 import { useDispatch, useSelector } from 'react-redux'
-import { loadingSelector, historyTransferSelector } from '../../../redux/selectors/transferSelector'
+import { dataTransferSelector, loadingTransferSelector } from '../../../redux/selectors/transferSelector'
 import Block from '../../common/Block'
 import HeaderTable from './HeaderTable'
 import { onGetHistoryTransfer } from '../../../redux/slices/transferSlice'
 import TransferHistoryItem from './TransferHistoryItem'
+import Scroll from '../../common/Scroll'
+import Header from './Header'
+import { unwrapResult } from '@reduxjs/toolkit'
 
 const HistoryTransfer = ({ navigation }) => {
-  const [loading, setLoading] = useState(true)
-  const data = useSelector(historyTransferSelector)
+  const loading = useSelector(loadingTransferSelector)
+  const data = useSelector(dataTransferSelector)
 
   const dispatch = useDispatch()
 
   useEffect(() => {
     const willFocusSubscription = navigation.addListener('focus', () => {
-      setLoading(true)
-      disPatchAPI()
+      getAPI(1)
     })
     return willFocusSubscription
   }, [])
 
-  const disPatchAPI = async () => {
-    await dispatch(onGetHistoryTransfer())
-    setLoading(false)
+  const getAPI = async (page) => {
+    const payload = unwrapResult(
+      await dispatch(onGetHistoryTransfer({
+        limit: 10,
+        page,
+      }))
+    )
+
+    payload.error && alert('Connection errors!')
   }
 
   return (
     <ScroollAreaView>
       <OpenDrawer navigation={navigation} />
+      <Header />
       {!loading &&
-        <>
-          <Block row>
-            <HeaderTable text={'From'} width={'27%'} />
-            <HeaderTable text={'To'} width={'27%'} />
-            <HeaderTable text={'Amount'} width={'19%'} />
-            <HeaderTable text={'Time'} width={'27%'} />
+        <Scroll horizontal marginTop={10}>
+          <Block>
+            <Block row>
+              <HeaderTable text={'From'} width={130} />
+              <HeaderTable text={'To'} width={130} />
+              <HeaderTable text={'Amount'} width={100} />
+              <HeaderTable text={'Time'} width={200} />
+            </Block>
+            {data.map(item =>
+              <TransferHistoryItem
+                key={item.id}
+                item={item}
+              />)
+            }
           </Block>
-          {data.array.map((item, index) =>
-            <TransferHistoryItem
-              key={item.id}
-              item={item}
-              index={index}
-            />)
-          }
-        </>
+        </Scroll>
       }
     </ScroollAreaView>
   )

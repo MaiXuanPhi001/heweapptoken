@@ -1,3 +1,7 @@
-export const historyTransferSelector = state => state.transfer.historyTransfer
+export const dataTransferSelector = state => state.transfer.data
 
-export const loadingSelector = state => state.transfer.loading
+export const loadingTransferSelector = state => state.transfer.loading
+
+export const totalTransferSelector = state => state.transfer.total
+
+export const pageTransferSelector = state => state.transfer.page

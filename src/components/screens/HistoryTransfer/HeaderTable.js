@@ -7,14 +7,13 @@ import { theme } from '../../../theme'
 const HeaderTable = ({ text, width }) => {
     return (
         <Block
-            height={50}
             width={width}
-            margin={1}
+            height={40}
             justifyCenter
             paddingHorizontal={5}
             backgroundColor={theme.colors.lightGreen2}
         >
-            <MyText size={12} color={'white'}>{text}</MyText>
+            <MyText color={'white'}>{text}</MyText>
         </Block>
     )
 }

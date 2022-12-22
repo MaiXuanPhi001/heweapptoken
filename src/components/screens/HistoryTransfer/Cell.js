@@ -1,19 +1,16 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet} from 'react-native'
 import React from 'react'
-import { theme } from '../../../theme'
 import Block from '../../common/Block'
 import MyText from '../../common/MyText'
 
-const Cell = ({ width, text, index }) => {
+const Cell = ({ width, text }) => {
     return (
         <Block
             width={width}
-            margin={1}
             justifyCenter
-            backgroundColor={index % 2 === 0 ? '#eeeee4' : '#bebeb6'}
+            paddingRight={20}
         >
             <MyText
-                size={12}
                 color={'black'}
                 margin={5}
             >

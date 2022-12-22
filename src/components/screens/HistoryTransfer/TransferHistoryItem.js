@@ -4,31 +4,28 @@ import Block from '../../common/Block'
 import Cell from './Cell'
 import { useSelector } from 'react-redux'
 import { emailSelector } from '../../../redux/selectors/userSelector'
+import { theme } from '../../../theme'
 
-const TransferHistoryItem = ({ item, index }) => {
+const TransferHistoryItem = ({ item }) => {
     const email = useSelector(emailSelector)
 
     return (
-        <Block row>
+        <Block row borderBottomWidth={1} borderColor={theme.colors.lightGreen2}>
             <Cell
                 text={item.email}
-                width={'27%'}
-                index={index}
+                width={130}
             />
             <Cell
                 text={item.emailTo}
-                width={'27%'}
-                index={index}
+                width={130}
             />
             <Cell
                 text={item.email === email ? '- ' + item.amount : '+ ' + item.amount}
-                width={'19%'}
-                index={index}
+                width={100}
             />
             <Cell
                 text={item.created_at}
-                width={'27%'}
-                index={index}
+                width={200}
             />
         </Block>
     )
