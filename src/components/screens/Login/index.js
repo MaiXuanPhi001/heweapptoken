@@ -13,27 +13,6 @@ const Login = () => {
 
   const dispatch = useDispatch()
 
-  useEffect(() => {
-    DeepLinking.addScheme(contants.APP_SCHEME)
-
-    Linking.getInitialURL().then(url => {
-      if (url) {
-        DeepLinking.evaluateUrl(url)
-      }
-    })
-
-    Linking.addListener('url', ({ url }) => {
-      if (url) {
-        DeepLinking.evaluateUrl(url)
-      }
-    })
-
-    DeepLinking.addRoute('/signup/:referral', res => {
-      dispatch(userSlice.actions.changeReferral(res.referral))
-      navigate(contants.screen.SIGNUP)
-    })
-  }, [])
-
   return (
     <Scroll
       flexGrow={1}

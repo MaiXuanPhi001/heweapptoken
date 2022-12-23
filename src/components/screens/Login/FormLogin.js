@@ -29,7 +29,10 @@ const FormLogin = () => {
             setLoading(false)
             return alert('Unable to connect to server!, please try again')
         }
-        result.status && await AsyncStorage.setItem(contants.STORAGE_KEY, result.data.token)
+        if (result.status) {
+            await AsyncStorage.setItem(contants.STORAGE_KEY, result.data.token)
+            navigate(contants.screen.HOME)
+        }
         !result.status && alert('Incorrect account or password!')
         setLoading(false)
     }

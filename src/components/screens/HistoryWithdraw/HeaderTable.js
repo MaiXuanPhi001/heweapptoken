@@ -36,6 +36,9 @@ const HeaderTable = () => {
             <Block width={200}>
                 <MyText color='white'>Time</MyText>
             </Block>
+            <Block width={100}>
+                <MyText color='white'>Status</MyText>
+            </Block>
         </Block>
     )
 }

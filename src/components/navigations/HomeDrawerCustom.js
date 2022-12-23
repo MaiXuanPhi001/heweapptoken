@@ -31,7 +31,7 @@ const data =
         },
         {
             id: 3,
-            lable: 'History transfer',
+            lable: 'Transfer history',
             screen: contants.screen.HISTORY_TRANSFER,
         },
         {
@@ -51,7 +51,7 @@ const data =
         },
         {
             id: 7,
-            lable: 'History withdraw',
+            lable: 'Withdraw history',
             screen: contants.screen.HISTORY_WITHDRAW,
         },
         {

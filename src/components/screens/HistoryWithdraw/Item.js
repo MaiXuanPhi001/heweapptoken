@@ -35,6 +35,11 @@ const Item = ({ item }) => {
             <Block width={200}>
                 <MyText>{item.created_at}</MyText>
             </Block>
+            <Block width={100}>
+                <MyText>
+                    {item.status === 0 ? 'Cancel' : item.status === 1 ? 'Success' : 'Pending'}
+                </MyText>
+            </Block>
         </Block>
     )
 }

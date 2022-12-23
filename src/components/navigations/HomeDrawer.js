@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { Linking, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import { createDrawerNavigator } from '@react-navigation/drawer'
 import { contants } from '../../utils/contants'
@@ -16,6 +16,14 @@ import SignUp from '../screens/SignUp'
 import DeleteAccount from '../screens/DeleteAccount'
 import Withdraw from '../screens/Withdraw'
 import HistoryWithdraw from '../screens/HistoryWithdraw'
+import { useEffect } from 'react'
+import { navigate } from './navigationRef'
+import DeepLinking from 'react-native-deep-linking'
+import userSlice from '../../redux/slices/userSlice'
+import { useDispatch } from 'react-redux'
+import AsyncStorage from '@react-native-async-storage/async-storage'
+import Login from '../screens/Login'
+import ForgotPassword from '../screens/ForgotPassword'
 
 const data =
     [
@@ -84,11 +92,47 @@ const data =
             name: contants.screen.DELETE_ACCOUNT,
             component: DeleteAccount,
         },
+        {
+            id: 13,
+            name: contants.screen.LOGIN,
+            component: Login,
+        },
+        {
+            id: 14,
+            name: contants.screen.FORGOTPASSWORD,
+            component: ForgotPassword,
+        },
     ]
 
 const Drawer = createDrawerNavigator();
 
 const HomeDrawer = () => {
+    const dispatch = useDispatch()
+
+    useEffect(() => {
+        DeepLinking.addScheme(contants.APP_SCHEME)
+
+        Linking.getInitialURL().then(url => {
+            if (url) {
+                DeepLinking.evaluateUrl(url)
+            }
+        })
+
+        Linking.addListener('url', ({ url }) => {
+            if (url) {
+                DeepLinking.evaluateUrl(url)
+            }
+        })
+
+        DeepLinking.addRoute('/signup/:referral', async res => {
+            dispatch(userSlice.actions.changeReferral(res.referral))
+            navigate(contants.screen.SIGNUP)
+        })
+        return () => {
+            Linking.removeAllListeners('url')
+        }
+    }, [])
+
     return (
         <Drawer.Navigator
             initialRouteName="Home"

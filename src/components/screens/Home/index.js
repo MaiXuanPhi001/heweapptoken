@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
-import { onGetProfile } from '../../../redux/slices/userSlice'
+import userSlice, { onGetProfile } from '../../../redux/slices/userSlice'
 import Session from './Session'
 import OpenDrawer from '../Reuse/OpenDrawer'
 import Block from '../../common/Block'
-import { ImageBackground, SafeAreaView, ScrollView, RefreshControl, StyleSheet } from 'react-native'
+import { ImageBackground, SafeAreaView, ScrollView, RefreshControl, StyleSheet, Linking } from 'react-native'
+import { contants } from '../../../utils/contants'
+import DeepLinking from 'react-native-deep-linking'
+import { navigate } from '../../navigations/navigationRef'
 
 const Home = ({ navigation }) => {
   const dispatch = useDispatch()

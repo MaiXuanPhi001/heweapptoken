@@ -17,28 +17,29 @@ const App = () => {
   const dispatch = useDispatch()
 
   useEffect(() => {
-    DeepLinking.addScheme(APP_SCHEME)
+    // DeepLinking.addScheme(APP_SCHEME)
 
-    Linking.getInitialURL().then(url => {
-      if (url) {
-        DeepLinking.evaluateUrl(url)
-      }
-    })
+    // Linking.getInitialURL().then(url => {
+    //   if (url) {
+    //     DeepLinking.evaluateUrl(url)
+    //   }
+    // })
 
-    Linking.addListener('url', ({ url }) => {
-      if (url) {
-        DeepLinking.evaluateUrl(url)
-      }
-    })
+    // Linking.addListener('url', ({ url }) => {
+    //   if (url) {
+    //     DeepLinking.evaluateUrl(url)
+    //   }
+    // })
 
-    DeepLinking.addRoute('/signup/:referral', async res => {
-      await logout()
-    })
+    // DeepLinking.addRoute('/signup/:referral', async res => {
+    //   await logout()
+    // })
   }, [])
 
   const logout = async () => {
     await AsyncStorage.setItem(contants.STORAGE_KEY, '')
     dispatch(userSlice.actions.signOut())
+    console.log('aksj')
   }
 
   return (

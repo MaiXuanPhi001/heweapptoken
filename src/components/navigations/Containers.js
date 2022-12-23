@@ -6,6 +6,7 @@ import { navigationRef } from './navigationRef'
 import { contants } from '../../utils/contants'
 import Hello from '../screens/Hello'
 import AppNavigation from './AppNavigation'
+import SignUp from '../screens/SignUp'
 
 const Stack = createNativeStackNavigator()
 

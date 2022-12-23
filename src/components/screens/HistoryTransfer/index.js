@@ -1,5 +1,5 @@
-import { StyleSheet, Text, View } from 'react-native'
-import React, { useEffect, useState } from 'react'
+import { StyleSheet } from 'react-native'
+import React, { useEffect } from 'react'
 import ScroollAreaView from '../Reuse/ScroollAreaView'
 import OpenDrawer from '../Reuse/OpenDrawer'
 import { useDispatch, useSelector } from 'react-redux'
@@ -39,7 +39,7 @@ const HistoryTransfer = ({ navigation }) => {
   return (
     <ScroollAreaView>
       <OpenDrawer navigation={navigation} />
-      <Header />
+      <Header getAPI={getAPI} />
       {!loading &&
         <Scroll horizontal marginTop={10}>
           <Block>
