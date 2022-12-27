@@ -88,7 +88,7 @@ const Withdraw = ({ navigation }) => {
                         padding={5}
                     >
                         <Warn text={`Withdrawl fee: ${data * 100}% / transaction`} />
-                        <Warn text={`Each transaction requires a minimum amount of $50`} />
+                        <Warn text={`Each transaction requires a minimum amount of 50 HEWE`} />
                     </Block>
                     <MyInput
                         value={wallet}
