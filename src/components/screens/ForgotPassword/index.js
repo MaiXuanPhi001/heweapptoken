@@ -1,19 +1,22 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet } from 'react-native'
 import React from 'react'
 import Scroll from '../../common/Scroll'
 import HeaderUser from '../Reuse/HeaderUser'
 import FormForgot from './FormForgot'
+import KeyboardAvoid from '../Reuse/KeyboardAvoid'
 
 const ForgotPassword = () => {
   return (
-    <Scroll
-      flexGrow={1}
-      alignCenter
-      paddingBottom={50}
-    >
-      <HeaderUser text={'Forgot password'} />
-      <FormForgot />
-    </Scroll>
+    <KeyboardAvoid>
+      <Scroll
+        flexGrow={1}
+        alignCenter
+        paddingBottom={50}
+      >
+        <HeaderUser text={'Forgot password'} />
+        <FormForgot />
+      </Scroll>
+    </KeyboardAvoid>
   )
 }
 

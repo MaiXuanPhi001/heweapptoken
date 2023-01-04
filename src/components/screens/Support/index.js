@@ -9,6 +9,7 @@ import OpenDrawer from '../Reuse/OpenDrawer'
 import HeaderProfile from '../Reuse/HeaderProfile'
 import { support } from '../../../api/userApi'
 import TextFormError from '../Reuse/TextFormError'
+import KeyboardAvoid from '../Reuse/KeyboardAvoid'
 
 const Support = ({ navigation }) => {
   const [title, settitle] = useState('')
@@ -35,53 +36,55 @@ const Support = ({ navigation }) => {
   }
 
   return (
-    <ScroollAreaView>
-      <OpenDrawer navigation={navigation} />
-      <HeaderProfile text={'Support'} />
-      <Block width={'100%'} alignCenter>
-        <Block
-          width={'80%'}
-          alignCenter
-          marginTop={10}
-        >
-          <MyInput
-            value={title}
-            setValue={settitle}
-            width={'100%'}
-            height={40}
-            hint={'Title'}
-            borderWidth={1}
-            borderColor={theme.colors.grayBorderInput}
-            paddingHorizontal={10}
-            paddingLeft={10}
-            paddingRight={10}
-            marginBottom={10}
-          />
-          {(checkForm && title.trim() === '') && <TextFormError text={'Title is empty'} />}
+    <KeyboardAvoid>
+      <ScroollAreaView>
+        <OpenDrawer navigation={navigation} />
+        <HeaderProfile text={'Support'} />
+        <Block width={'100%'} alignCenter>
+          <Block
+            width={'80%'}
+            alignCenter
+            marginTop={10}
+          >
+            <MyInput
+              value={title}
+              setValue={settitle}
+              width={'100%'}
+              height={40}
+              hint={'Title'}
+              borderWidth={1}
+              borderColor={theme.colors.grayBorderInput}
+              paddingHorizontal={10}
+              paddingLeft={10}
+              paddingRight={10}
+              marginBottom={10}
+            />
+            {(checkForm && title.trim() === '') && <TextFormError text={'Title is empty'} />}
 
-          <MyInput
-            value={message}
-            setValue={setMessage}
-            width={'100%'}
-            height={40}
-            hint={'Message'}
-            borderWidth={1}
-            borderColor={theme.colors.grayBorderInput}
-            paddingHorizontal={10}
-            paddingLeft={10}
-            paddingRight={10}
-            marginBottom={10}
-          />
-          {(checkForm && message.trim() === '') && <TextFormError text={'Message is empty'} />}
+            <MyInput
+              value={message}
+              setValue={setMessage}
+              width={'100%'}
+              height={40}
+              hint={'Message'}
+              borderWidth={1}
+              borderColor={theme.colors.grayBorderInput}
+              paddingHorizontal={10}
+              paddingLeft={10}
+              paddingRight={10}
+              marginBottom={10}
+            />
+            {(checkForm && message.trim() === '') && <TextFormError text={'Message is empty'} />}
 
-          <ButtonUser
-            onPress={handleSendSupport}
-            text={'Submit'}
-            loading={loading}
-          />
+            <ButtonUser
+              onPress={handleSendSupport}
+              text={'Submit'}
+              loading={loading}
+            />
+          </Block>
         </Block>
-      </Block>
-    </ScroollAreaView>
+      </ScroollAreaView>
+    </KeyboardAvoid>
   )
 }
 

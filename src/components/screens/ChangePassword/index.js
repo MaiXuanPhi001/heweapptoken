@@ -8,6 +8,7 @@ import InputPassword from '../Reuse/InputPassword'
 import ScroollAreaView from '../Reuse/ScroollAreaView'
 import TextFormError from '../Reuse/TextFormError'
 import { changePassword } from '../../../api/userApi'
+import KeyboardAvoid from '../Reuse/KeyboardAvoid'
 
 const initValue = {
   oldPassword: '',
@@ -76,52 +77,54 @@ const ChangePassword = ({ navigation }) => {
   }
 
   return (
-    <ScroollAreaView>
-      <OpenDrawer navigation={navigation} />
-      <HeaderProfile text={'Change password'} />
-      <Block width={'100%'} alignCenter>
-        <Block
-          width={'80%'}
-          alignCenter
-          marginTop={10}
-        >
-          <InputPassword
-            onPress={() => hadleDispatch('CHANGE/SECURITY', 'securityOldPassword', !data.securityOldPassword)}
-            value={data.oldPassword}
-            setValue={text => hadleDispatch('CHANGE/TEXT', 'oldPassword', text)}
-            security={data.securityOldPassword}
-            hint={'Old password'}
-          />
-          {(data.checkForm && data.oldPassword.trim() === '') && <TextFormError text={'Old password is empty'} />}
+    <KeyboardAvoid>
+      <ScroollAreaView>
+        <OpenDrawer navigation={navigation} />
+        <HeaderProfile text={'Change password'} />
+        <Block width={'100%'} alignCenter>
+          <Block
+            width={'80%'}
+            alignCenter
+            marginTop={10}
+          >
+            <InputPassword
+              onPress={() => hadleDispatch('CHANGE/SECURITY', 'securityOldPassword', !data.securityOldPassword)}
+              value={data.oldPassword}
+              setValue={text => hadleDispatch('CHANGE/TEXT', 'oldPassword', text)}
+              security={data.securityOldPassword}
+              hint={'Old password'}
+            />
+            {(data.checkForm && data.oldPassword.trim() === '') && <TextFormError text={'Old password is empty'} />}
 
-          <InputPassword
-            onPress={() => hadleDispatch('CHANGE/SECURITY', 'securityNewPassword', !data.securityNewPassword)}
-            value={data.newPassword}
-            setValue={text => hadleDispatch('CHANGE/TEXT', 'newPassword', text)}
-            security={data.securityNewPassword}
-            hint={'New password'}
-          />
-          {(data.checkForm && data.newPassword.trim() === '') && <TextFormError text={'New password is empty'} />}
+            <InputPassword
+              onPress={() => hadleDispatch('CHANGE/SECURITY', 'securityNewPassword', !data.securityNewPassword)}
+              value={data.newPassword}
+              setValue={text => hadleDispatch('CHANGE/TEXT', 'newPassword', text)}
+              security={data.securityNewPassword}
+              hint={'New password'}
+            />
+            {(data.checkForm && data.newPassword.trim() === '') && <TextFormError text={'New password is empty'} />}
 
-          <InputPassword
-            onPress={() => hadleDispatch('CHANGE/SECURITY', 'securityConfirmNewPassword', !data.securityConfirmNewPassword)}
-            value={data.confirmNewPassword}
-            setValue={text => hadleDispatch('CHANGE/TEXT', 'confirmNewPassword', text)}
-            security={data.securityConfirmNewPassword}
-            hint={'Confirm new password'}
-          />
-          {(data.checkForm && data.confirmNewPassword.trim() === '') && <TextFormError text={'Confirm new password is empty'} />}
-          {(data.checkForm && data.confirmNewPassword.trim() !== '' && (data.confirmNewPassword.trim() !== data.newPassword.trim())) &&
-            <TextFormError text={'confirm new password different password'} />}
+            <InputPassword
+              onPress={() => hadleDispatch('CHANGE/SECURITY', 'securityConfirmNewPassword', !data.securityConfirmNewPassword)}
+              value={data.confirmNewPassword}
+              setValue={text => hadleDispatch('CHANGE/TEXT', 'confirmNewPassword', text)}
+              security={data.securityConfirmNewPassword}
+              hint={'Confirm new password'}
+            />
+            {(data.checkForm && data.confirmNewPassword.trim() === '') && <TextFormError text={'Confirm new password is empty'} />}
+            {(data.checkForm && data.confirmNewPassword.trim() !== '' && (data.confirmNewPassword.trim() !== data.newPassword.trim())) &&
+              <TextFormError text={'confirm new password different password'} />}
 
-          <ButtonUser
-            onPress={handleChangePassword}
-            text={'Change password'}
-            loading={data.loading}
-          />
+            <ButtonUser
+              onPress={handleChangePassword}
+              text={'Change password'}
+              loading={data.loading}
+            />
+          </Block>
         </Block>
-      </Block>
-    </ScroollAreaView >
+      </ScroollAreaView >
+    </KeyboardAvoid>
   )
 }
 

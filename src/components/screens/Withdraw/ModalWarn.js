@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet } from 'react-native'
 import React from 'react'
 import Block from '../../common/Block'
 import { Modal } from 'react-native-paper'
@@ -41,9 +41,9 @@ const ModalWarn = ({ show, setShow, onWithdraw }) => {
                     <Block width={'100%'} height={1} backgroundColor={theme.colors.grayBorder}></Block>
                     <Block padding={10}>
                         <MyText fontWeightBold>
-                            BEP20 is required
+                            BEP20 is required.
                             Please making sure your ewallet address is correct before confirmed the transaction.
-                            We are not responsible for any transaction error and lost.
+                            We are not responsible for any transaction error or lost.
                         </MyText>
                         <Block row marginTop={40} justifySpaceBetween>
                             <MyButton

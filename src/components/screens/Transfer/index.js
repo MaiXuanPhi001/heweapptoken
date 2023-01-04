@@ -11,6 +11,7 @@ import TextFormError from '../Reuse/TextFormError'
 import { transfer } from '../../../api/transferApi'
 import { useDispatch } from 'react-redux'
 import { onGetProfile } from '../../../redux/slices/userSlice'
+import KeyboardAvoid from '../Reuse/KeyboardAvoid'
 
 const Transfer = ({ navigation }) => {
   const [toReferral, setReferral] = useState('')
@@ -23,7 +24,7 @@ const Transfer = ({ navigation }) => {
   const handleTransfer = async () => {
     if (toReferral.trim() === '' || amount.toString().trim() === '' || amount < 50) {
       setCheckForm(true)
-      return 
+      return
     }
 
     const res = await transfer({
@@ -41,57 +42,59 @@ const Transfer = ({ navigation }) => {
   }
 
   return (
-    <ScroollAreaView>
-      <OpenDrawer navigation={navigation} />
-      <HeaderProfile text={'Transfer'} />
-      <Block width={'100%'} alignCenter>
-        <Block
-          width={'80%'}
-          alignCenter
-          marginTop={10}
-        >
-          <MyInput
-            onPress={() => alert('Hello')}
-            value={toReferral}
-            setValue={setReferral}
-            width={'100%'}
-            height={40}
-            hint={'To referral'}
-            borderWidth={1}
-            borderColor={theme.colors.grayBorderInput}
-            paddingHorizontal={10}
-            paddingLeft={10}
-            paddingRight={10}
-            marginBottom={10}
-            iconTwo={require('../../../assets/images/scan.png')}
-          />
-          {(checkForm && toReferral.trim() === '') && <TextFormError text={'toReferral is empty'} />}
+    <KeyboardAvoid>
+      <ScroollAreaView>
+        <OpenDrawer navigation={navigation} />
+        <HeaderProfile text={'Transfer'} />
+        <Block width={'100%'} alignCenter>
+          <Block
+            width={'80%'}
+            alignCenter
+            marginTop={10}
+          >
+            <MyInput
+              onPress={() => alert('Hello')}
+              value={toReferral}
+              setValue={setReferral}
+              width={'100%'}
+              height={40}
+              hint={'To referral'}
+              borderWidth={1}
+              borderColor={theme.colors.grayBorderInput}
+              paddingHorizontal={10}
+              paddingLeft={10}
+              paddingRight={10}
+              marginBottom={10}
+              iconTwo={require('../../../assets/images/scan.png')}
+            />
+            {(checkForm && toReferral.trim() === '') && <TextFormError text={'toReferral is empty'} />}
 
-          <MyInput
-            value={amount}
-            setValue={setAmount}
-            keyboardType={'decimal-pad'}
-            width={'100%'}
-            height={40}
-            hint={'Amount'}
-            borderWidth={1}
-            borderColor={theme.colors.grayBorderInput}
-            paddingHorizontal={10}
-            paddingLeft={10}
-            paddingRight={10}
-            marginBottom={10}
-          />
-          {(checkForm && amount.toString().trim() === '') && <TextFormError text={'amount is empty'} />}
-          {(checkForm && amount.toString().trim() !== '' && amount < 50) && <TextFormError text={'Minimum amount must be 50$'} />}
+            <MyInput
+              value={amount}
+              setValue={setAmount}
+              keyboardType={'decimal-pad'}
+              width={'100%'}
+              height={40}
+              hint={'Amount'}
+              borderWidth={1}
+              borderColor={theme.colors.grayBorderInput}
+              paddingHorizontal={10}
+              paddingLeft={10}
+              paddingRight={10}
+              marginBottom={10}
+            />
+            {(checkForm && amount.toString().trim() === '') && <TextFormError text={'amount is empty'} />}
+            {(checkForm && amount.toString().trim() !== '' && amount < 50) && <TextFormError text={'Minimum amount must be 50$'} />}
 
-          <ButtonUser
-            onPress={handleTransfer}
-            text={'Confirm'}
-            loading={loading}
-          />
+            <ButtonUser
+              onPress={handleTransfer}
+              text={'Confirm'}
+              loading={loading}
+            />
+          </Block>
         </Block>
-      </Block>
-    </ScroollAreaView>
+      </ScroollAreaView>
+    </KeyboardAvoid>
   )
 }
 

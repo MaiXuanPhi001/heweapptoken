@@ -1,4 +1,4 @@
-import { Alert, SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { Alert, SafeAreaView, StyleSheet } from 'react-native'
 import React from 'react'
 import Block from '../../common/Block'
 import MyText from '../../common/MyText'
@@ -8,8 +8,9 @@ import { unwrapResult } from '@reduxjs/toolkit'
 import { useDispatch } from 'react-redux'
 import { removeAccount } from '../../../redux/slices/userSlice'
 import { alertConfirm } from '../../../method/alert'
+import OpenDrawer from '../Reuse/OpenDrawer'
 
-const DeleteAccount = () => {
+const DeleteAccount = ({ navigation }) => {
   const dispatch = useDispatch()
 
   const handleShowAlerRemoveAccount = async () => {
@@ -22,7 +23,10 @@ const DeleteAccount = () => {
   }
 
   return (
-    <SafeAreaView flex={1}>
+    <SafeAreaView flex={1} style={{ backgroundColor: 'white' }}>
+      <Block paddingHorizontal={10}>
+        <OpenDrawer navigation={navigation} />
+      </Block>
       <Block
         flex={1}
         isPaddingAdnroid
