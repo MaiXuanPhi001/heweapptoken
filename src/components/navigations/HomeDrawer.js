@@ -24,6 +24,7 @@ import { useDispatch } from 'react-redux'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import Login from '../screens/Login'
 import ForgotPassword from '../screens/ForgotPassword'
+import Home from '../screens/Home'
 
 const data =
     [
@@ -101,6 +102,11 @@ const data =
             id: 14,
             name: contants.screen.FORGOTPASSWORD,
             component: ForgotPassword,
+        },
+        {
+            id: 15,
+            name: contants.screen.HOME,
+            component: Home,
         },
     ]
 

@@ -28,7 +28,6 @@ const transferSlice = createSlice({
 
 export const onGetHistoryTransfer = createAsyncThunk('transfer/history', async (data) => {
     const res = await getHistoryTransfer(data)
-    console.log(res)
     return res
 })
 
