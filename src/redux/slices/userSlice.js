@@ -43,6 +43,9 @@ const userSlice = createSlice({
                 state.userInfo = {}
                 state.isLogin = false
             })
+            .addCase(getAgainProfile.fulfilled, (state, action) => {
+                state.userInfo = action.payload.data
+            })
     }
 })
 
@@ -85,6 +88,11 @@ export const onGetProfile = createAsyncThunk('user/getProfile', async () => {
 export const removeAccount = createAsyncThunk('user/deleteAccount', async () => {
     const res = await deleteAccount()
     res.status && await AsyncStorage.clear()
+    return res
+})
+
+export const getAgainProfile = createAsyncThunk('user/getAgainProfile', async () => {
+    const res = await getProfile()
     return res
 })
 

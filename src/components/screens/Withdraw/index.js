@@ -12,12 +12,15 @@ import { useEffect } from 'react'
 import { getCustom, withdraw } from '../../../api/transferApi'
 import TextFormError from '../Reuse/TextFormError'
 import Warn from './Warn'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { balanceSelector } from '../../../redux/selectors/userSelector'
 import ModalWarn from './ModalWarn'
 import KeyboardAvoid from '../Reuse/KeyboardAvoid'
+import userSlice, { getAgainProfile } from '../../../redux/slices/userSlice'
 
 const Withdraw = ({ navigation }) => {
+    const dispatch = useDispatch()
+
     const [wallet, setWallet] = useState('')
     const [amount, setAmount] = useState('')
     const [receive, setReceive] = useState('')
@@ -53,6 +56,7 @@ const Withdraw = ({ navigation }) => {
         if (res.error) {
             alert('Connection errors')
         } else {
+            dispatch(getAgainProfile())
             alert(res.message)
         }
         setShowModal(false)

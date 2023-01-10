@@ -17,7 +17,7 @@ const data =
         {
             id: 0,
             lable: 'Home',
-            screen: contants.screen.HOME,
+            screen: contants.screen.HOMESTACK,
         },
         {
             id: 1,
