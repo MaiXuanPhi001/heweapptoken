@@ -22,7 +22,7 @@ const FormSignUp = () => {
     const [code, setCode] = useState('')
     const [password, setPassword] = useState('')
     const [confirmPassword, setConfirmPassword] = useState('')
-    const [gender, setGender] = useState(1)
+    const [gender, setGender] = useState(0)
     const [security, setSecurity] = useState(true)
     const [loading, setLoading] = useState(false)
     const [checkForm, setCheckForm] = useState(false)
@@ -35,10 +35,16 @@ const FormSignUp = () => {
         if (!handleCheckForm()) return
         if (password.trim() !== confirmPassword.trim()) return alert('Confirm password incorrect')
         setLoading(true)
-        const res = await signUp({ email, password, gender, codeEmail: code, referral })
+        const res = await signUp({
+            email,
+            password,
+            gender: gender === 0 || gender === 1 ? 1 : 2,
+            codeEmail: code,
+            referral
+        })
         if (res.status) {
             clearForm()
-        } 
+        }
         alert(res.message)
         setLoading(false)
     }
@@ -152,18 +158,20 @@ const FormSignUp = () => {
                 iconOne={require('../../../assets/images/password.png')}
             />
 
-            <Block row width={'100%'} alignCenter>
-                <MyText marginRight={10}>Gender: </MyText>
-                <RadioBtn
-                    text={'Male'}
-                    onPress={() => setGender(1)}
-                    checked={gender === 1 ? true : false}
-                />
-                <RadioBtn
-                    text={'Female'}
-                    onPress={() => setGender(2)}
-                    checked={gender === 2 ? true : false}
-                />
+            <Block width={'100%'}>
+                <MyText marginRight={10} marginBottom={10}>App interface will change by gender (optional): </MyText>
+                <Block row>
+                    <RadioBtn
+                        text={'Male'}
+                        onPress={() => setGender(gender === 1 ? 0 : 1)}
+                        checked={gender === 1 ? true : false}
+                    />
+                    <RadioBtn
+                        text={'Female'}
+                        onPress={() => setGender(gender === 2 ? 0 : 2)}
+                        checked={gender === 2 ? true : false}
+                    />
+                </Block>
             </Block>
 
             <ButtonUser

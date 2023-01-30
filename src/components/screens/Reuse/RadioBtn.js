@@ -14,7 +14,8 @@ const RadioBtn = ({ onPress, checked, text }) => {
             <MyButton
                 onPress={onPress}
                 borderWidth={2}
-                radius={50} width={20}
+                radius={50} 
+                width={20}
                 height={20}
                 justifyCenter
                 alignCenter

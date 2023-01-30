@@ -103,11 +103,6 @@ const data =
             name: contants.screen.FORGOTPASSWORD,
             component: ForgotPassword,
         },
-        {
-            id: 15,
-            name: contants.screen.HOME,
-            component: Home,
-        },
     ]
 
 const Drawer = createDrawerNavigator();
@@ -141,7 +136,7 @@ const HomeDrawer = () => {
 
     return (
         <Drawer.Navigator
-            initialRouteName="Home"
+            initialRouteName="HomeStack"
             screenOptions={{ headerShown: false }}
             drawerContent={props => <HomeDrawerCustom {...props} />}
         >
