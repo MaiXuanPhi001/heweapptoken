@@ -16,8 +16,10 @@ const MyInput = ({
     iconOne,
     iconTwo,
     onPress,
+    color = 'black',
+    placeholderTextColor = '#6666',
     keyboardType = 'default',
-    autoCapitalize='none',
+    autoCapitalize = 'none',
     flex,
     editable = true,
     flexShrink,
@@ -90,6 +92,7 @@ const MyInput = ({
         isPaddingIos && {
             paddingBottom: Platform.OS === 'ios' ? insets.bottom : getSize.m(20),
         },
+        { color: color },
         flex && styles.block,
         flexShrink && styles.flexShrink,
         flexGrow && styles.flexGrow,
@@ -165,6 +168,7 @@ const MyInput = ({
                 value={value}
                 onChangeText={setValue}
                 placeholder={hint}
+                placeholderTextColor={placeholderTextColor}
                 editable={editable}
                 style={blockStyles} {...rest}
                 secureTextEntry={security ? true : false}

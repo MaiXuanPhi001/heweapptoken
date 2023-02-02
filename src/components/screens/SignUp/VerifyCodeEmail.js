@@ -58,6 +58,7 @@ const VerifyCodeEmail = ({ code, setCode, email }) => {
                     value={code}
                     onChangeText={setCode}
                     placeholder='Email verification code'
+                    placeholderTextColor={'#6666'}
                     style={styles.input}
                 />
             </Block>
@@ -90,7 +91,8 @@ const styles = StyleSheet.create({
         width: '100%',
         borderColor: theme.colors.grayBorderInput,
         borderWidth: 1,
-        paddingLeft: 40
+        paddingLeft: 40,
+        color: 'black'
     },
     imgVerifi: {
         position: 'absolute',
