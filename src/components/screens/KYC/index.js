@@ -187,7 +187,7 @@ const KYC = ({ navigation }) => {
         <InputUser
           value={data.passport}
           setValue={text => handleDataDispatch('CHANGE', 'passport', text)}
-          hint={'Passport'}
+          hint={'Passport / ID Card'}
         />
         {(data.checkForm && data.passport.trim() === '') && <TextFormError text={'Passport is empty'} />}
 
